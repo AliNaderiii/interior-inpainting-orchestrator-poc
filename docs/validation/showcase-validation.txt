@@ -1,0 +1,23 @@
+GitHub Pages showcase local validation evidence
+Date: 2026-08-23
+Python 3.13.14
+v20.20.2
+
+Static showcase validation: PASS
+JavaScript syntax: PASS
+All checks passed!
+26 files already formatted
+Success: no issues found in 11 source files
+............                                                             [100%]
+12 passed in 0.98s
+Python compileall: PASS
+Targeted credential-pattern review: PASS (0 candidates)
+Pages symlink review: PASS (0 symlinks)
+Browser sample geometry: 960x640
+Browser sample protected pixels: 534801
+Browser sample editable pixels: 79599
+
+e9f9cf9a2feb358282c63a0bb88b8d7c56f64e1d9b4c3f62f41e65b96e83c213  site/assets/before-synthetic.png
+afa0e0faf25674ce1b5edd1a79a6fb33c8f608867c44ff38f41d88928ed3d163  site/assets/mask-white-edit-synthetic.png
+ccf138f97a48cccdce26532a3cb74f67b2dd198cd76eed0f1c36d48130a69eac  site/assets/after-deterministic-demo-not-ai.png
+62de0be4a0c34992065740e3a0a2d01612efa08ba0a0dfab41dba13dd5c81e1c  site/assets/social-preview.png

@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A security-conscious reference PoC for controlled interior image inpainting, with exact restoration of protected pixels.">
+  <meta name="theme-color" content="#07100f">
+  <meta name="color-scheme" content="dark light">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Interior Inpainting Orchestrator — Reference PoC">
+  <meta property="og:description" content="Controlled edits. Verifiable boundaries. Provider-neutral orchestration with exact protected-pixel restoration.">
+  <meta property="og:image" content="https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Interior Inpainting Orchestrator — controlled edits and verifiable boundaries">
+  <meta property="og:url" content="https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Interior Inpainting Orchestrator — Reference PoC</title>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="site-header" data-header>
+    <div class="shell nav-shell">
+      <a class="brand" href="#top" aria-label="Interior Inpainting Orchestrator home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 36 36" role="img">
+            <path d="M7 8.5 18 3l11 5.5v19L18 33 7 27.5Z"></path>
+            <path d="m12 20 4 4 8-10"></path>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>Inpaint / Orchestrator</strong>
+          <small>REFERENCE POC · v0.1</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle icon-button" type="button" aria-expanded="false" aria-controls="primary-nav" data-nav-toggle>
+        <span class="sr-only">Toggle navigation</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+      </button>
+
+      <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation" data-nav>
+        <a href="#lab">Boundary Lab</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#security">Security</a>
+        <a class="nav-github" href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc" target="_blank" rel="noopener noreferrer">
+          GitHub
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+        </a>
+      </nav>
+
+      <button class="theme-toggle icon-button" type="button" aria-label="Switch color theme" data-theme-toggle>
+        <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero section" id="top" aria-labelledby="hero-title">
+      <div class="shell hero-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Pre-award engineering evidence</div>
+          <h1 id="hero-title">Controlled edits.<br><span>Verifiable boundaries.</span></h1>
+          <p class="hero-lede">A security-conscious orchestration layer for interior image inpainting—designed around strict mask authority, provider isolation, and exact restoration of every protected pixel.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#lab">
+              Open Boundary Lab
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </a>
+            <a class="button button-secondary" href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc" target="_blank" rel="noopener noreferrer">
+              Inspect source
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg>
+            </a>
+          </div>
+          <dl class="hero-facts" aria-label="Project status">
+            <div><dt>Runtime matrix</dt><dd>Python 3.11–3.13</dd></div>
+            <div><dt>Protected drift</dt><dd><strong>0 pixels</strong></dd></div>
+            <div><dt>Default mode</dt><dd>Local · zero cost</dd></div>
+          </dl>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay" aria-label="Interactive before and after evidence">
+          <div class="visual-frame">
+            <div class="window-bar" aria-hidden="true">
+              <div class="window-dots"><i></i><i></i><i></i></div>
+              <div class="window-address"><span></span> evidence://protected-boundary</div>
+              <div class="window-secure">
+                <svg viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5Z"></path></svg>
+              </div>
+            </div>
+            <div class="compare-wrap">
+              <canvas class="compare-canvas" width="960" height="640" data-compare-canvas aria-label="Before and deterministic after comparison"></canvas>
+              <div class="compare-loading" data-compare-loading>Loading verified artifact…</div>
+              <span class="image-tag image-tag-before">Original</span>
+              <span class="image-tag image-tag-after">Deterministic output</span>
+            </div>
+            <div class="compare-controls">
+              <label class="range-label" for="compare-range">
+                <span>Inspect boundary</span>
+                <output for="compare-range" data-compare-output>58%</output>
+              </label>
+              <input id="compare-range" class="range" type="range" min="0" max="100" value="58" data-compare-range>
+              <button class="mask-toggle" type="button" aria-pressed="false" data-mask-toggle>
+                <span class="checker" aria-hidden="true"></span>
+                Show authorized mask
+              </button>
+            </div>
+            <div class="proof-strip">
+              <div><span class="proof-icon proof-pass" aria-hidden="true">✓</span><span><small>Compositing proof</small><strong>Outside-mask exact</strong></span></div>
+              <div><span class="proof-icon" aria-hidden="true">#</span><span><small>Protected pixels</small><strong>534,801 unchanged</strong></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="shell trust-row reveal" aria-label="Core technologies">
+        <span>FASTAPI</span><i></i><span>PYDANTIC v2</span><i></i><span>OPENCV</span><i></i><span>NUMPY</span><i></i><span>FLUX.1 FILL ADAPTER</span><i></i><span>STRICT MYPY</span>
+      </div>
+    </section>
+
+    <section class="section lab-section" id="lab" aria-labelledby="lab-title">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div>
+            <p class="kicker">01 / BOUNDARY LAB</p>
+            <h2 id="lab-title">Test the invariant in your browser.</h2>
+          </div>
+          <p>Upload an aligned image and mask, or use the synthetic sample. The local simulator changes only white-mask pixels and computes the proof without transmitting your files.</p>
+        </div>
+
+        <div class="lab-grid reveal" data-lab>
+          <div class="lab-panel lab-inputs">
+            <div class="panel-head">
+              <div><span class="step-number">A</span><span><small>INPUT CONTRACT</small><strong>Image + authorized mask</strong></span></div>
+              <span class="local-badge"><i aria-hidden="true"></i> Browser only</span>
+            </div>
+
+            <div class="sample-thumb-row">
+              <img src="assets/before-synthetic.png" alt="Synthetic interior room sample" width="960" height="640">
+              <div><strong>Synthetic room / 960 × 640</strong><span>Repository-owned test artifact</span></div>
+              <button class="text-button" type="button" data-load-sample>Reload sample</button>
+            </div>
+
+            <div class="upload-grid">
+              <label class="upload-field" for="image-upload">
+                <span class="upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4Z"></path><path d="m4 16 5-5 4 4 2-2 5 5M16 9h.01"></path></svg></span>
+                <span><strong>Source image</strong><small data-image-name>Use sample or choose PNG/JPEG/WebP</small></span>
+                <input id="image-upload" type="file" accept="image/png,image/jpeg,image/webp" data-image-upload>
+              </label>
+              <label class="upload-field" for="mask-upload">
+                <span class="upload-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9"></path><path d="M12 3v9h9"></path></svg></span>
+                <span><strong>White-edit mask</strong><small data-mask-name>Must match image dimensions</small></span>
+                <input id="mask-upload" type="file" accept="image/png,image/jpeg,image/webp" data-mask-upload>
+              </label>
+            </div>
+
+            <label class="prompt-field" for="demo-prompt">
+              <span><strong>Prompt-shaped input</strong><small>Displayed for contract fidelity; not interpreted by this local renderer.</small></span>
+              <textarea id="demo-prompt" rows="3" maxlength="1000" data-prompt>Replace the masked wall area with a calm contemporary finish.</textarea>
+              <output for="demo-prompt" data-prompt-count>72 / 1000</output>
+            </label>
+
+            <div class="lab-notice" role="note">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+              <p><strong>Privacy by construction.</strong> This page has no API calls, analytics, cookies, or third-party scripts. Its Content Security Policy blocks outbound connections.</p>
+            </div>
+
+            <button class="button button-primary button-full" type="button" data-run-demo>
+              Run deterministic boundary check
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 4 14 8-14 8Z"></path></svg>
+            </button>
+            <p class="lab-error" role="alert" aria-live="assertive" data-lab-error></p>
+          </div>
+
+          <div class="lab-panel lab-output">
+            <div class="panel-head">
+              <div><span class="step-number">B</span><span><small>LOCAL RESULT</small><strong>Pixel-authority evidence</strong></span></div>
+              <span class="status-badge" data-lab-status><i aria-hidden="true"></i> Ready</span>
+            </div>
+            <div class="output-stage">
+              <canvas width="960" height="640" data-output-canvas aria-label="Deterministic local simulation result"></canvas>
+              <div class="output-watermark">NON-AI LOCAL SIMULATION</div>
+            </div>
+            <dl class="result-metrics" aria-live="polite">
+              <div><dt>Protected</dt><dd data-protected-count>—</dd><small>black-mask pixels</small></div>
+              <div><dt>Changed protected</dt><dd class="metric-safe" data-drift-count>—</dd><small>target: exactly zero</small></div>
+              <div><dt>Editable changed</dt><dd data-edit-count>—</dd><small>white-mask pixels</small></div>
+            </dl>
+            <div class="result-actions">
+              <button class="button button-secondary button-small" type="button" data-download disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"></path></svg>
+                Download PNG
+              </button>
+              <span data-proof-message>Run the check to calculate evidence.</span>
+            </div>
+          </div>
+        </div>
+        <p class="scope-caption reveal"><strong>Scope boundary:</strong> this browser lab demonstrates deterministic mask/compositing behavior—not generative quality. The repository contains a mocked and contract-tested BFL adapter; live provider execution requires approved credentials, region, budget, and acceptance criteria.</p>
+      </div>
+    </section>
+
+    <section class="section architecture-section" id="architecture" aria-labelledby="architecture-title">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div><p class="kicker">02 / ARCHITECTURE</p><h2 id="architecture-title">Provider-neutral by design.<br>Boundary-first by default.</h2></div>
+          <p>The provisional FastAPI contract isolates ingress, image policy, provider execution, and final compositing so each boundary can be reviewed and replaced independently.</p>
+        </div>
+
+        <div class="flow-map reveal" aria-label="Inpainting request architecture">
+          <article><span>01</span><div class="flow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4Z"></path><path d="M4 9h16M9 9v11"></path></svg></div><h3>Bounded ingress</h3><p>Multipart bytes, MIME policy, prompt length</p></article>
+          <i class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 40 12"><path d="M1 6h35m-5-5 5 5-5 5"></path></svg></i>
+          <article><span>02</span><div class="flow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4Z"></path><path d="m4 16 5-5 4 4 2-2 5 5"></path></svg></div><h3>Normalize</h3><p>Decode limits, EXIF orientation, RGB policy</p></article>
+          <i class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 40 12"><path d="M1 6h35m-5-5 5 5-5 5"></path></svg></i>
+          <article><span>03</span><div class="flow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v9h9"></path></svg></div><h3>Mask authority</h3><p>White edits, black protects, aligned geometry</p></article>
+          <i class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 40 12"><path d="M1 6h35m-5-5 5 5-5 5"></path></svg></i>
+          <article><span>04</span><div class="flow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v4H8ZM4 16h6v4H4Zm10 0h6v4h-6ZM12 8v4M7 16v-4h10v4"></path></svg></div><h3>Provider adapter</h3><p>Deterministic demo or BFL protocol boundary</p></article>
+          <i class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 40 12"><path d="M1 6h35m-5-5 5 5-5 5"></path></svg></i>
+          <article class="flow-critical"><span>05</span><div class="flow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></div><h3>Exact restore</h3><p>Original pixels re-applied outside hard mask</p></article>
+        </div>
+
+        <div class="architecture-detail-grid">
+          <div class="code-card reveal">
+            <div class="code-head"><span><i></i><i></i><i></i></span><strong>POST /poc/v1/inpaint</strong><button type="button" data-copy-code>Copy</button></div>
+            <pre><code data-code-block><span class="code-muted"># Provisional PoC contract</span>
+curl -X POST http://localhost:8000/poc/v1/inpaint \
+  -F <span class="code-string">"image=@room.png;type=image/png"</span> \
+  -F <span class="code-string">"mask=@mask.png;type=image/png"</span> \
+  -F <span class="code-string">"prompt=Restyle the authorized wall"</span> \
+  --output result.png
+
+<span class="code-muted"># Response evidence headers</span>
+x-poc-provider: deterministic-demo
+content-type: image/png
+cache-control: no-store</code></pre>
+          </div>
+          <div class="boundary-card reveal reveal-delay">
+            <p class="kicker">NON-NEGOTIABLE INVARIANT</p>
+            <blockquote>“The provider may propose pixels. The hard mask decides where they are allowed to survive.”</blockquote>
+            <div class="boundary-equation"><span>final</span><b>=</b><span>generated × mask</span><b>+</b><span>original × protected</span></div>
+            <a href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/blob/main/src/inpainting_poc/orchestrator.py" target="_blank" rel="noopener noreferrer">Inspect orchestration source <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section evidence-section" id="evidence" aria-labelledby="evidence-title">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <div><p class="kicker">03 / VERIFIABLE EVIDENCE</p><h2 id="evidence-title">Claims backed by executable checks.</h2></div>
+          <p>The repository separates demonstrated properties from open production risks. CI checks the supported runtime matrix on every change.</p>
+        </div>
+
+        <div class="evidence-grid reveal">
+          <article class="metric-card metric-card-accent"><div class="metric-top"><span>Protected-pixel drift</span><i>PASS</i></div><strong>0</strong><p>changed pixels outside the authorized hard mask</p><div class="mini-chart zero-chart" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Protected pixels proved</span><i>LOCAL</i></div><strong>534,801</strong><p>pixel comparisons in the approved synthetic artifact</p><div class="metric-progress" aria-hidden="true"><span></span></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Compatibility matrix</span><i>CI</i></div><strong>3 runtimes</strong><p>Python 3.11, 3.12 and 3.13 execute the test suite</p><div class="runtime-pills"><span>3.11 ✓</span><span>3.12 ✓</span><span>3.13 ✓</span></div></article>
+          <article class="metric-card"><div class="metric-top"><span>Automated test runs</span><i>CI MATRIX</i></div><strong>12 × 3</strong><p>twelve tests are required on every supported runtime</p><a href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions" target="_blank" rel="noopener noreferrer">View GitHub Actions <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a></article>
+        </div>
+
+        <div class="assurance-table-wrap reveal">
+          <table>
+            <caption>Quality-gate snapshot</caption>
+            <thead><tr><th scope="col">Control</th><th scope="col">Method</th><th scope="col">Current evidence</th><th scope="col">Status</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Static correctness</th><td>Ruff lint + format</td><td>Whole Python tree</td><td><span class="table-status pass">PASS</span></td></tr>
+              <tr><th scope="row">Type boundary</th><td>Strict mypy</td><td>Minimum Python 3.11</td><td><span class="table-status pass">PASS</span></td></tr>
+              <tr><th scope="row">Runtime behavior</th><td>pytest matrix</td><td>3.11 / 3.12 / 3.13</td><td><span class="table-status pass">PASS</span></td></tr>
+              <tr><th scope="row">Live model quality</th><td>Approved-provider evaluation</td><td>Credential + budget required</td><td><span class="table-status pending">OPEN RISK</span></td></tr>
+              <tr><th scope="row">Final client contract</th><td>OpenAPI conformance</td><td>Client schema not supplied</td><td><span class="table-status pending">OPEN RISK</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section security-section" id="security" aria-labelledby="security-title">
+      <div class="shell security-grid">
+        <div class="security-copy reveal">
+          <p class="kicker">04 / SECURITY POSTURE</p>
+          <h2 id="security-title">Small attack surface.<br>Explicit trust boundaries.</h2>
+          <p>Controls are placed where untrusted bytes, remote provider behavior, and short-lived result URLs enter the system—not added as an afterthought.</p>
+          <a class="button button-secondary" href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/blob/main/docs/SECURITY.md" target="_blank" rel="noopener noreferrer">Read security notes <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a>
+        </div>
+        <div class="control-grid reveal reveal-delay">
+          <article><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4Z"></path><path d="M8 9h8M8 13h5"></path></svg></span><h3>Bounded decoding</h3><p>Encoded bytes and decoded megapixels are capped; animated inputs are rejected.</p></article>
+          <article><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></span><h3>SSRF resistance</h3><p>No arbitrary remote input URLs; provider result downloads require HTTPS and approved hosts.</p></article>
+          <article><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10V7a5 5 0 0 1 10 0v3M5 10h14v11H5Z"></path></svg></span><h3>Secret isolation</h3><p>Credentials come from environment variables and are never embedded in requests or artifacts.</p></article>
+          <article><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4Z"></path><path d="M8 12h8M12 8v8"></path></svg></span><h3>Resource control</h3><p>Prompt size, polling deadline, retries, response bytes, and provider lifetime are bounded.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section truth-section" aria-labelledby="truth-title">
+      <div class="shell truth-card reveal">
+        <div class="truth-title"><span>05 / ENGINEERING HONESTY</span><h2 id="truth-title">A reference PoC—not a production-quality claim.</h2></div>
+        <div class="truth-columns">
+          <div><h3><span aria-hidden="true">✓</span> Demonstrated here</h3><ul><li>Image and mask validation pipeline</li><li>Provider-neutral async orchestration</li><li>Mock-tested BFL request/poll/download flow</li><li>Exact outside-mask pixel restoration</li><li>Security controls, tests, CI, and evidence</li></ul></div>
+          <div><h3><span aria-hidden="true">○</span> Requires contract award</h3><ul><li>Client-owned OpenAPI and JSON Schemas</li><li>Approved provider, model, account, and region</li><li>Live visual-quality acceptance benchmark</li><li>Production deployment and observability target</li><li>Privacy, retention, and commercial constraints</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-cta" aria-labelledby="cta-title">
+      <div class="shell cta-card reveal">
+        <div><p class="kicker">READY FOR CONTRACT DISCOVERY</p><h2 id="cta-title">Start from evidence.<br>Scale with explicit decisions.</h2><p>The next phase replaces provisional assumptions with client-owned contracts, approved infrastructure, and measurable visual-quality criteria.</p></div>
+        <div class="cta-actions"><a class="button button-light" href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc" target="_blank" rel="noopener noreferrer">Explore repository <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a><a class="cta-text-link" href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/blob/main/docs/POC_VALIDATION_REPORT.md" target="_blank" rel="noopener noreferrer">Read validation report →</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div class="brand footer-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M7 8.5 18 3l11 5.5v19L18 33 7 27.5Z"></path><path d="m12 20 4 4 8-10"></path></svg></span><span class="brand-copy"><strong>Inpaint / Orchestrator</strong><small>REFERENCE POC · MIT LICENSE</small></span></div>
+      <p>Built as transparent pre-award engineering evidence.<br>No tracking. No external runtime dependencies. No AI-quality claim.</p>
+      <div class="footer-links"><a href="#top">Back to top ↑</a><a href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc" target="_blank" rel="noopener noreferrer">Source</a><a href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions" target="_blank" rel="noopener noreferrer">CI</a></div>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

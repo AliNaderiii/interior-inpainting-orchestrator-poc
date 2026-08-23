@@ -2,8 +2,9 @@
 
 - Validation date (UTC): 2026-08-23T10:48:47Z
 - Status: **PASS_WITH_RISK — pre-contract reference PoC only**
-- Repository commit: not available; workspace has not yet been initialized/pushed as a Git repository.
+- Public backend baseline commit: `346cd5260ac30df587f76419b59d2fbe6ab1ad2f`.
 - Environment: Python 3.13.14, Ruff 0.16.4, mypy 1.20.2, pytest 9.0.3.
+- This report preserves the eight-test backend baseline evidence. The later GitHub Pages extension adds four static-site/security tests; see `SHOWCASE_VALIDATION_REPORT.md`.
 
 ## Verified
 
@@ -46,4 +47,4 @@ python -m compileall -q src tests scripts
 
 ## Gate decision
 
-The PoC is suitable for a public engineering portfolio after Git initialization and a final live-repository review. It is not suitable for production deployment or a claim of completed client scope.
+The backend baseline is suitable for a public engineering portfolio and has passed live-repository CI review. The later static showcase remains subject to its separate GitHub Pages deployment gate. Neither surface is suitable for production deployment or a claim of completed client scope.

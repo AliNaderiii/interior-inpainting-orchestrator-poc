@@ -1,8 +1,11 @@
 # Interior Inpainting Orchestrator — Pre-award Reference PoC
 
 [![CI](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/ci.yml)
+[![GitHub Pages](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/pages.yml/badge.svg)](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/pages.yml)
 [![Python](https://img.shields.io/badge/Python-3.11--3.13-3776AB.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+![Interior Inpainting Orchestrator — controlled edits and verifiable boundaries](site/assets/social-preview.png)
 
 A focused, security-conscious reference implementation demonstrating the deterministic portion of an interior-staging inpainting backend:
 
@@ -16,8 +19,32 @@ A focused, security-conscious reference implementation demonstrating the determi
 - bounded uploads, prompts, polling, retries and result downloads
 - unit, property-oriented and API tests
 - non-root Docker image and CI baseline
+- portfolio-grade static showcase with a browser-local boundary lab
+
+> **Live showcase:** [Open the GitHub Pages experience](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/) — inspect the before/after proof, run the deterministic boundary lab, and review the architecture without installing anything.
 
 > **Important:** This repository is a pre-contract reference PoC. It does not implement or claim compatibility with the client's finalized API contracts because those contracts have not been supplied. The local demo provider is deliberately non-generative and must never be represented as an AI-quality benchmark.
+
+## GitHub Pages showcase
+
+The `site/` directory is a dependency-free static technical showcase designed for GitHub Pages. It includes:
+
+- an accessible, responsive, dark/light portfolio experience;
+- an interactive before/after and authorized-mask inspector;
+- a browser-local image + mask boundary lab with downloadable PNG output;
+- architecture, security, CI evidence and explicit open-risk sections;
+- no analytics, cookies, external scripts, API calls or uploaded-file transmission;
+- a restrictive Content Security Policy with outbound connections disabled.
+
+GitHub Pages serves static files only—it does **not** run the FastAPI backend or hold provider credentials. The browser lab is clearly labelled deterministic and non-AI. See [`docs/GITHUB_PAGES.md`](docs/GITHUB_PAGES.md) for deployment and review instructions.
+
+Preview it locally:
+
+```bash
+python -m http.server 4173 --directory site
+```
+
+Then open `http://localhost:4173`.
 
 ## Security posture
 

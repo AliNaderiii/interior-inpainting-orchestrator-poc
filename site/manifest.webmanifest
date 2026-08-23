@@ -1,0 +1,17 @@
+{
+  "name": "Interior Inpainting Orchestrator — Reference PoC",
+  "short_name": "Inpaint PoC",
+  "description": "Controlled image inpainting orchestration with verifiable protected-pixel boundaries.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07100f",
+  "theme_color": "#07100f",
+  "icons": [
+    {
+      "src": "icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

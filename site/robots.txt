@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/sitemap.xml
