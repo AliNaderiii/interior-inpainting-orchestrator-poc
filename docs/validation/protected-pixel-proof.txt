@@ -1,0 +1,4 @@
+protected_pixels=534801
+changed_protected_pixels=0
+changed_editable_pixels=79599
+result=PASS

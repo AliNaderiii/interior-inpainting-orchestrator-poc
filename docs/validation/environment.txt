@@ -1,0 +1,5 @@
+timestamp_utc=2026-08-23T10:48:47Z
+Python 3.13.14
+ruff 0.16.4
+mypy 1.20.2 (compiled: yes)
+pytest 9.0.3
