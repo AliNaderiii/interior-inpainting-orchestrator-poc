@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#07100f">
   <meta name="color-scheme" content="dark light">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Interior Inpainting Orchestrator — Reference PoC">
   <meta property="og:description" content="Controlled edits. Verifiable boundaries. Provider-neutral orchestration with exact protected-pixel restoration.">
@@ -214,11 +214,11 @@
       <div class="shell">
         <div class="section-heading reveal">
           <div><p class="kicker">02 / ARCHITECTURE</p><h2 id="architecture-title">Provider-neutral by design.<br>Boundary-first by default.</h2></div>
-          <p>The provisional FastAPI contract isolates ingress, image policy, provider execution, and final compositing so each boundary can be reviewed and replaced independently.</p>
+          <p>Version 0.2 adds deterministic Style Intent compilation and a bounded job lifecycle while preserving the synchronous v1 route and the exact compositing boundary.</p>
         </div>
 
         <div class="flow-map reveal" aria-label="Inpainting request architecture">
-          <article><span>01</span><div class="flow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4Z"></path><path d="M4 9h16M9 9v11"></path></svg></div><h3>Bounded ingress</h3><p>Multipart bytes, MIME policy, prompt length</p></article>
+          <article><span>01</span><div class="flow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4Z"></path><path d="M4 9h16M9 9v11"></path></svg></div><h3>Intent + ingress</h3><p>Deterministic prompt, multipart limits, idempotency</p></article>
           <i class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 40 12"><path d="M1 6h35m-5-5 5 5-5 5"></path></svg></i>
           <article><span>02</span><div class="flow-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4Z"></path><path d="m4 16 5-5 4 4 2-2 5 5"></path></svg></div><h3>Normalize</h3><p>Decode limits, EXIF orientation, RGB policy</p></article>
           <i class="flow-arrow" aria-hidden="true"><svg viewBox="0 0 40 12"><path d="M1 6h35m-5-5 5 5-5 5"></path></svg></i>
@@ -231,18 +231,20 @@
 
         <div class="architecture-detail-grid">
           <div class="code-card reveal">
-            <div class="code-head"><span><i></i><i></i><i></i></span><strong>POST /poc/v1/inpaint</strong><button type="button" data-copy-code>Copy</button></div>
-            <pre><code data-code-block><span class="code-muted"># Provisional PoC contract</span>
-curl -X POST http://localhost:8000/poc/v1/inpaint \
+            <div class="code-head"><span><i></i><i></i><i></i></span><strong>POST /poc/v2/jobs</strong><button type="button" data-copy-code>Copy</button></div>
+            <pre><code data-code-block><span class="code-muted"># Bounded job + transparent StyleIntent</span>
+curl -X POST http://localhost:8000/poc/v2/jobs \
+  -H <span class="code-string">"Idempotency-Key: room-edit-0001"</span> \
   -F <span class="code-string">"image=@room.png;type=image/png"</span> \
   -F <span class="code-string">"mask=@mask.png;type=image/png"</span> \
-  -F <span class="code-string">"prompt=Restyle the authorized wall"</span> \
-  --output result.png
+  -F <span class="code-string">'intent={"style":"japandi","materials":["wood","stone"]}'</span>
 
-<span class="code-muted"># Response evidence headers</span>
-x-poc-provider: deterministic-demo
-content-type: image/png
-cache-control: no-store</code></pre>
+<span class="code-muted"># 202 Accepted · poll the Location URL</span>
+location: /poc/v2/jobs/{job_id}
+retry-after: 1
+cache-control: no-store
+
+<span class="code-muted"># POST /poc/v1/inpaint remains available</span></code></pre>
           </div>
           <div class="boundary-card reveal reveal-delay">
             <p class="kicker">NON-NEGOTIABLE INVARIANT</p>

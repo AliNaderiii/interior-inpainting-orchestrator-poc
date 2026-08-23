@@ -84,11 +84,15 @@ def test_site_enforces_a_no_network_runtime_boundary() -> None:
         parser.feed(html)
         assert "connect-src 'none'" in html
         assert "object-src 'none'" in html
-        assert "frame-ancestors 'none'" in html
         assert "base-uri 'none'" in html
+        assert "form-action 'none'" in html
+        assert "frame-ancestors" not in html
         assert parser.inline_scripts == 0
         assert parser.inline_styles == 0
         assert not parser.event_handlers
+
+    pages_documentation = (ROOT / "docs" / "GITHUB_PAGES.md").read_text(encoding="utf-8")
+    assert "cannot enforce `frame-ancestors`" in pages_documentation
 
     forbidden_network_apis = ("fetch(", "XMLHttpRequest", "WebSocket", "sendBeacon(")
     for javascript_path in SITE.glob("*.js"):
@@ -111,6 +115,8 @@ def test_showcase_assets_and_honest_scope_are_preserved() -> None:
     assert "not generative quality" in html
     assert "approved credentials, region, budget, and acceptance criteria" in html
     assert "Client-owned OpenAPI and JSON Schemas" in html
+    assert "POST /poc/v2/jobs" in html
+    assert 'href="studio.html"' in html
 
     asset_names = (
         "before-synthetic.png",

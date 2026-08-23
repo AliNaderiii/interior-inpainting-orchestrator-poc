@@ -98,9 +98,10 @@ def validate() -> list[str]:
             errors.append(f"Sensitive filename in artifact: {path.relative_to(ROOT)}")
 
     csp_directives = (
+        "connect-src 'none'",
         "object-src 'none'",
         "base-uri 'none'",
-        "frame-ancestors 'none'",
+        "form-action 'none'",
     )
     for html_path in SITE.glob("*.html"):
         html = html_path.read_text(encoding="utf-8")
@@ -109,8 +110,11 @@ def validate() -> list[str]:
         for directive in csp_directives:
             if directive not in html:
                 errors.append(f"Missing CSP directive in {html_path.name}: {directive}")
-        if html_path.name != "404.html" and "connect-src 'none'" not in html:
-            errors.append(f"Missing no-network CSP in {html_path.name}")
+        if "frame-ancestors" in html:
+            errors.append(
+                "Ineffective frame-ancestors directive must not be delivered by meta in "
+                f"{html_path.name}"
+            )
         if parser.inline_violation:
             errors.append(f"Inline script/style/event handler in {html_path.name}")
         for reference in parser.references:
@@ -123,7 +127,7 @@ def validate() -> list[str]:
         "connect-src 'none'",
         "object-src 'none'",
         "base-uri 'none'",
-        "frame-ancestors 'none'",
+        "form-action 'none'",
     ):
         if directive not in index:
             errors.append(f"Missing CSP directive: {directive}")
@@ -131,9 +135,15 @@ def validate() -> list[str]:
         "NON-AI LOCAL SIMULATION",
         "not generative quality",
         "Client-owned OpenAPI and JSON Schemas",
+        "POST /poc/v2/jobs",
+        "Launch Visual Restyle Studio",
     ):
         if claim_boundary not in index:
             errors.append(f"Missing scope language: {claim_boundary}")
+
+    pages_documentation = (ROOT / "docs" / "GITHUB_PAGES.md").read_text(encoding="utf-8")
+    if "cannot enforce `frame-ancestors`" not in pages_documentation:
+        errors.append("Missing honest documentation of the GitHub Pages frame-policy limitation")
 
     javascript = (SITE / "app.js").read_text(encoding="utf-8")
     studio_javascript = (SITE / "studio.js").read_text(encoding="utf-8")

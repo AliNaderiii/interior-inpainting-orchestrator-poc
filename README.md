@@ -28,6 +28,8 @@ A focused, security-conscious reference implementation demonstrating the determi
 
 > **Important:** This repository is a pre-contract reference PoC. It does not implement or claim compatibility with the client's finalized API contracts because those contracts have not been supplied. The local demo provider is deliberately non-generative and must never be represented as an AI-quality benchmark.
 
+> **Current release:** `v0.2.0` adds the bounded job API, Style Intent compiler and Visual Restyle Studio. See the [changelog](CHANGELOG.md), [release notes](docs/RELEASE_V0.2.0.md) and [public verification report](reports/PHASE_02_PUBLIC_RELEASE_VERIFICATION.md).
+
 ## GitHub Pages showcase
 
 The `site/` directory is a dependency-free static technical showcase designed for GitHub Pages. It includes:

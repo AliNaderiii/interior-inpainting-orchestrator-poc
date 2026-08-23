@@ -1,5 +1,7 @@
 # GitHub Pages Showcase Validation Report
 
+> **Historical snapshot:** this report records the initial 12-test showcase release. Public Phase 02 verification and the current 24-test matrix are documented in [`reports/PHASE_02_PUBLIC_RELEASE_VERIFICATION.md`](../reports/PHASE_02_PUBLIC_RELEASE_VERIFICATION.md).
+
 **Date:** 2026-08-23
 **Status:** `PASS_WITH_DEPLOYMENT_GATE`
 **Scope:** Static showcase, browser Boundary Lab, Pages workflow and repository integration

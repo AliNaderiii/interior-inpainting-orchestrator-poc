@@ -40,10 +40,21 @@ All official actions are pinned to full commit SHAs. The site has no package ins
 Every HTML entry point declares a restrictive Content Security Policy. `index.html` and `studio.html` explicitly disable all runtime connections:
 
 - `connect-src 'none'` blocks runtime network/API calls;
-- scripts, styles and images are same-origin only;
-- inline scripts, inline styles, frames, objects, forms and base-URL changes are blocked;
+- scripts and styles are same-origin; images are limited to same-origin and local `data:`/`blob:` sources;
+- inline scripts, inline styles, objects, forms and base-URL changes are blocked;
 - uploaded files are decoded locally with browser APIs and are not transmitted;
 - no analytics, cookies, external fonts or third-party JavaScript are used.
+
+### Frame-policy limitation
+
+A CSP delivered through a `<meta>` element cannot enforce `frame-ancestors`. GitHub Pages does not provide repository-controlled custom response headers, so this deployment does **not** claim HTTP-level clickjacking protection. The ignored directive is intentionally omitted to avoid a false security signal and browser console errors.
+
+This is a low-impact limitation for the current read-only showcase because it has no authentication, session, payment, provider call or sensitive form state. If the experience moves to a configurable host, set response headers such as:
+
+```http
+Content-Security-Policy: frame-ancestors 'none'
+X-Frame-Options: DENY
+```
 
 Never add provider API keys, backend secrets, `.env` files or live paid-provider calls to GitHub Pages. Client-side code and Pages artifacts are public.
 

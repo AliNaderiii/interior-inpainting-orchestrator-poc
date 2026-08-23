@@ -1,0 +1,115 @@
+PHASE 03 RELEASE HARDENING VALIDATION
+Date: 2026-08-23
+
+== Host runtime ==
+Python 3.13.14
+v20.20.2
+
+== Formatting, lint and typing ==
+39 files already formatted
+All checks passed!
+Success: no issues found in 13 source files
+
+== CPython 3.13 tests ==
+........................                                                 [100%]
+24 passed in 1.10s
+
+== Static showcase ==
+Static showcase validation: PASS
+site/app.js syntax: PASS
+site/studio.js syntax: PASS
+
+== Project dependency audit ==
+No known vulnerabilities found
+
+== Desktop Chromium workflow ==
+{
+  "home": 200,
+  "studio": 200,
+  "coverage": "12.96%",
+  "canvas": "960 \u00d7 640",
+  "intent_hash": "intent / e23725591163",
+  "protected_pixels": "534,801",
+  "protected_drift": "0",
+  "editable_changed": "79,599",
+  "proof": "PASS \u00b7 every protected pixel is byte-identical.",
+  "request_hosts": [
+    "127.0.0.1:4174"
+  ],
+  "responses": 12,
+  "known_meta_csp_warnings": 0,
+  "unexpected_console_errors": 0,
+  "page_errors": 0,
+  "failed_requests": 0,
+  "screenshot": "/home/user/phase3-local-smoke.png"
+}
+
+== Mobile Chromium workflow ==
+{
+  "home": 200,
+  "studio": 200,
+  "coverage": "12.96%",
+  "canvas": "960 \u00d7 640",
+  "intent_hash": "intent / e23725591163",
+  "protected_pixels": "534,801",
+  "protected_drift": "0",
+  "editable_changed": "79,599",
+  "proof": "PASS \u00b7 every protected pixel is byte-identical.",
+  "request_hosts": [
+    "127.0.0.1:4174"
+  ],
+  "responses": 12,
+  "known_meta_csp_warnings": 0,
+  "unexpected_console_errors": 0,
+  "page_errors": 0,
+  "failed_requests": 0,
+  "screenshot": "/home/user/phase3-mobile-smoke.png"
+}
+
+== CPython 3.11 tests ==
+Downloading cpython-3.11.16-linux-x86_64-gnu (download) (29.5MiB)
+ Downloaded cpython-3.11.16-linux-x86_64-gnu (download)
+   Building interior-inpainting-orchestrator-poc @ file:///home/user/interior-inpainting-orchestrator-poc
+Downloading uvloop (3.6MiB)
+Downloading opencv-python-headless (59.1MiB)
+Downloading mypy (13.9MiB)
+Downloading ruff (9.8MiB)
+Downloading numpy (16.1MiB)
+Downloading pillow (6.6MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading pygments (1.2MiB)
+ Downloaded pydantic-core
+ Downloaded uvloop
+ Downloaded ruff
+ Downloaded pillow
+ Downloaded pygments
+      Built interior-inpainting-orchestrator-poc @ file:///home/user/interior-inpainting-orchestrator-poc
+ Downloaded opencv-python-headless
+ Downloaded numpy
+ Downloaded mypy
+Installed 40 packages in 42ms
+Python 3.11.16
+Installed 40 packages in 47ms
+........................                                                 [100%]
+24 passed in 1.65s
+
+== CPython 3.12 tests ==
+Downloading cpython-3.12.14-linux-x86_64-gnu (download) (32.6MiB)
+ Downloaded cpython-3.12.14-linux-x86_64-gnu (download)
+Downloading numpy (15.9MiB)
+Downloading pillow (6.6MiB)
+Downloading mypy (14.1MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading uvloop (4.2MiB)
+ Downloaded pydantic-core
+ Downloaded uvloop
+ Downloaded pillow
+ Downloaded numpy
+ Downloaded mypy
+Installed 40 packages in 43ms
+Python 3.12.14
+Installed 40 packages in 39ms
+........................                                                 [100%]
+24 passed in 1.68s
+
+FINAL LOCAL RESULT: PASS
