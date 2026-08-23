@@ -1,5 +1,9 @@
 # Interior Inpainting Orchestrator — Pre-award Reference PoC
 
+[![CI](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/Python-3.11--3.13-3776AB.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A focused, security-conscious reference implementation demonstrating the deterministic portion of an interior-staging inpainting backend:
 
 - FastAPI boundary (provisional PoC contract only)
@@ -31,8 +35,9 @@ A focused, security-conscious reference implementation demonstrating the determi
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate
-pip install -e '.[dev]'
+# Linux/macOS/Git Bash: source .venv/bin/activate
+# Windows PowerShell:   .venv\Scripts\Activate.ps1
+python -m pip install -e '.[dev]'
 pytest -q
 uvicorn inpainting_poc.api:app --reload
 ```
@@ -79,4 +84,8 @@ Temporary artifacts are written to `demo-artifacts/`; the approved synthetic doc
 
 ## Next step after contract award
 
-Replace the provisional PoC API with the client-owned OpenAPI/schema baseline, run contract discovery, confirm primary provider/model/region, and execute the gated delivery system in `../inpainting-agentic-delivery-system/`.
+Replace the provisional PoC API with the client-owned OpenAPI/schema baseline, run contract discovery, confirm the primary provider/model/region, and execute the approved security and delivery gates.
+
+## License
+
+MIT. Provider services and model outputs remain subject to their own terms, acceptable-use policies and commercial licensing.

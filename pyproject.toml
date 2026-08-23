@@ -7,6 +7,7 @@ name = "interior-inpainting-orchestrator-poc"
 version = "0.1.0"
 description = "Pre-award reference PoC for deterministic image and mask orchestration"
 readme = "README.md"
+license = "MIT"
 requires-python = ">=3.11,<3.14"
 dependencies = [
   "fastapi>=0.116,<1",
@@ -50,4 +51,6 @@ select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
 [tool.mypy]
 python_version = "3.11"
 strict = true
-packages = ["inpainting_poc"]
+mypy_path = "src"
+files = ["src/inpainting_poc"]
+explicit_package_bases = true
