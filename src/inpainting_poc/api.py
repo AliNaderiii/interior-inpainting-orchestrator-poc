@@ -30,6 +30,13 @@ from .orchestrator import InpaintingOrchestrator
 from .providers.base import InpaintingProvider
 from .providers.bfl import BFLFluxFillProvider
 from .providers.demo import DeterministicDemoProvider
+from .spatial import (
+    CompiledSpatialBrief,
+    DeterministicPlacementOrchestrator,
+    SpatialDesignBrief,
+    compile_spatial_brief,
+    parse_placement_spec,
+)
 
 _ALLOWED_CONTENT_TYPES = {
     "image/jpeg",
@@ -56,12 +63,13 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     settings = Settings.from_env()
     settings.validate()
     provider = _build_provider(settings)
+    limits = ImageLimits(
+        max_bytes=settings.max_upload_bytes,
+        max_pixels=settings.max_pixels,
+    )
     orchestrator = InpaintingOrchestrator(
         provider=provider,
-        limits=ImageLimits(
-            max_bytes=settings.max_upload_bytes,
-            max_pixels=settings.max_pixels,
-        ),
+        limits=limits,
     )
     jobs = InMemoryJobManager(
         orchestrator,
@@ -72,6 +80,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.settings = settings
     app.state.provider = provider
     app.state.orchestrator = orchestrator
+    app.state.placement_orchestrator = DeterministicPlacementOrchestrator(limits)
     app.state.jobs = jobs
     try:
         yield
@@ -82,10 +91,11 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 app = FastAPI(
     title="Interior Inpainting Orchestrator — Reference PoC",
-    version="0.2.0",
+    version="0.3.0",
     description=(
-        "Provisional controlled-inpainting API with deterministic local evidence, "
-        "structured style intent and a bounded non-durable job lifecycle."
+        "Provisional spatial-design and controlled-inpainting API with deterministic local "
+        "evidence, structured briefs, transform-only product placement and a bounded "
+        "non-durable job lifecycle."
     ),
     lifespan=lifespan,
 )
@@ -152,6 +162,13 @@ def _validate_upload_types(image: UploadFile, mask: UploadFile) -> None:
         raise InvalidImageError("Unsupported mask upload content type")
 
 
+def _validate_spatial_upload_types(source: UploadFile, asset: UploadFile) -> None:
+    if source.content_type not in _ALLOWED_CONTENT_TYPES:
+        raise InvalidImageError("Unsupported source-scene upload content type")
+    if asset.content_type not in _ALLOWED_CONTENT_TYPES:
+        raise InvalidImageError("Unsupported product-asset upload content type")
+
+
 def _parse_intent(value: str | None) -> StyleIntent | None:
     if value is None:
         return None
@@ -167,6 +184,52 @@ def _validate_idempotency_key(value: str | None) -> str | None:
     if not _IDEMPOTENCY_KEY.fullmatch(value):
         raise InvalidIntentError("Idempotency-Key must contain 8-128 safe ASCII characters")
     return value
+
+
+@app.post(
+    "/poc/v3/briefs/compile",
+    response_model=CompiledSpatialBrief,
+    tags=["v3 spatial design"],
+)
+async def compile_v3_spatial_brief(brief: SpatialDesignBrief) -> CompiledSpatialBrief:
+    return compile_spatial_brief(brief)
+
+
+@app.post(
+    "/poc/v3/placements/preview",
+    tags=["v3 spatial design"],
+    responses={
+        200: {"content": {"image/png": {}}},
+        422: {"model": ErrorBody, "description": "Invalid source, asset, or placement plane"},
+    },
+)
+async def preview_v3_product_placement(
+    request: Request,
+    source: Annotated[UploadFile, File()],
+    asset: Annotated[UploadFile, File()],
+    placement: Annotated[str, Form(max_length=4_000)],
+) -> Response:
+    settings: Settings = request.app.state.settings
+    _validate_spatial_upload_types(source, asset)
+    source_bytes = await _read_bounded(source, settings.max_upload_bytes)
+    asset_bytes = await _read_bounded(asset, settings.max_upload_bytes)
+    output = request.app.state.placement_orchestrator.run(
+        source_bytes=source_bytes,
+        asset_bytes=asset_bytes,
+        spec=parse_placement_spec(placement),
+    )
+    proof_json = json.dumps(output.proof.model_dump(), separators=(",", ":"))
+    return Response(
+        content=output.png_bytes,
+        media_type="image/png",
+        headers={
+            "x-poc-renderer": output.proof.renderer_version,
+            "x-poc-protected-drift": str(output.proof.protected_pixel_drift),
+            "x-poc-asset-sha256": output.proof.asset_sha256,
+            "x-poc-placement-proof": proof_json,
+            "cache-control": "no-store",
+        },
+    )
 
 
 @app.post("/poc/v2/intents/compile", response_model=CompiledIntent, tags=["v2 jobs"])

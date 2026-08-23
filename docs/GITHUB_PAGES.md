@@ -4,9 +4,11 @@
 
 The `site/` directory is a static, portfolio-grade technical showcase for this reference PoC. It is intentionally separate from the FastAPI runtime:
 
-- GitHub Pages presents architecture, security controls and executable browser-side evidence.
+- GitHub Pages presents architecture, security controls, an illustrative cinematic narrative and executable browser-side evidence.
 - FastAPI remains the backend reference implementation and runs locally, in CI tests, or on an approved application host.
-- The browser Boundary Lab and Visual Restyle Studio are deterministic and non-AI. They do not call FLUX or claim generative quality.
+- The cinematic lounge frames are original illustrative art-direction assets, not deterministic evidence, live-model output or client work.
+- The browser Boundary Lab, Visual Restyle Studio and Spatial Design Studio are deterministic and non-AI. They do not call FLUX or claim generative quality.
+- Spatial Studio demonstrates brief structure, authored scene locks, transform-only product placement, controlled variants and local proof exports.
 
 Expected public URL:
 
@@ -37,7 +39,7 @@ All official actions are pinned to full commit SHAs. The site has no package ins
 
 ## Static-site security boundary
 
-Every HTML entry point declares a restrictive Content Security Policy. `index.html` and `studio.html` explicitly disable all runtime connections:
+Every HTML entry point declares a restrictive Content Security Policy. `index.html`, `studio.html` and `spatial.html` explicitly disable all runtime connections:
 
 - `connect-src 'none'` blocks runtime network/API calls;
 - scripts and styles are same-origin; images are limited to same-origin and local `data:`/`blob:` sources;
@@ -65,13 +67,20 @@ Before sharing the URL with a client:
 - [ ] `ci` passes on Python 3.11, 3.12 and 3.13.
 - [ ] `pages` build and deploy jobs pass.
 - [ ] The home page loads without a path suffix.
+- [ ] The cinematic story reversibly advances through `Atmosphere → Analyze → Place → Prove`.
+- [ ] The cinematic frames remain explicitly labelled illustrative and separate from executable evidence.
+- [ ] The static chapter sequence remains readable with reduced motion and with JavaScript disabled.
 - [ ] Before/after slider and mask overlay work.
 - [ ] Boundary Lab sample produces zero changed protected pixels.
 - [ ] Visual Restyle Studio completes `Intent → Mask → Preview → Verify`.
+- [ ] Spatial Design Studio completes `Brief → Locks → Placement → Variants → Handoff`.
+- [ ] Product-plane handles and numeric coordinates work; invalid planes are not accepted.
+- [ ] Variant selection reports zero protected drift and exports PNG, contact sheet and JSON manifest locally.
+- [ ] Catalog-faithful and Generative Concept mode boundaries remain explicit.
 - [ ] Studio paint/erase tools, structured prompt explanation and job timeline work.
-- [ ] Custom image and mask remain local and produce a downloadable PNG.
+- [ ] Custom image, mask and product assets remain local and produce downloadable artifacts.
 - [ ] Browser developer tools show no outbound runtime requests after static assets load.
-- [ ] Mobile navigation and dark/light theme work.
+- [ ] Mobile navigation, dark/light theme, reduced transparency and reduced motion states work.
 - [ ] External source, CI, security and validation links resolve.
 - [ ] No text implies that the deterministic browser demo is AI-generated.
 - [ ] No live-provider capability is claimed without approved evidence.

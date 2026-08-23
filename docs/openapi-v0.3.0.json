@@ -1,0 +1,1133 @@
+{
+  "components": {
+    "schemas": {
+      "Body_create_job_poc_v2_jobs_post": {
+        "properties": {
+          "image": {
+            "contentMediaType": "application/octet-stream",
+            "title": "Image",
+            "type": "string"
+          },
+          "intent": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intent"
+          },
+          "mask": {
+            "contentMediaType": "application/octet-stream",
+            "title": "Mask",
+            "type": "string"
+          },
+          "prompt": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Prompt"
+          }
+        },
+        "required": [
+          "image",
+          "mask"
+        ],
+        "title": "Body_create_job_poc_v2_jobs_post",
+        "type": "object"
+      },
+      "Body_inpaint_poc_v1_inpaint_post": {
+        "properties": {
+          "image": {
+            "contentMediaType": "application/octet-stream",
+            "title": "Image",
+            "type": "string"
+          },
+          "mask": {
+            "contentMediaType": "application/octet-stream",
+            "title": "Mask",
+            "type": "string"
+          },
+          "prompt": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Prompt",
+            "type": "string"
+          }
+        },
+        "required": [
+          "image",
+          "mask",
+          "prompt"
+        ],
+        "title": "Body_inpaint_poc_v1_inpaint_post",
+        "type": "object"
+      },
+      "Body_preview_v3_product_placement_poc_v3_placements_preview_post": {
+        "properties": {
+          "asset": {
+            "contentMediaType": "application/octet-stream",
+            "title": "Asset",
+            "type": "string"
+          },
+          "placement": {
+            "maxLength": 4000,
+            "title": "Placement",
+            "type": "string"
+          },
+          "source": {
+            "contentMediaType": "application/octet-stream",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "asset",
+          "placement"
+        ],
+        "title": "Body_preview_v3_product_placement_poc_v3_placements_preview_post",
+        "type": "object"
+      },
+      "CompiledIntent": {
+        "additionalProperties": false,
+        "properties": {
+          "compiler_version": {
+            "const": "intent-v1",
+            "default": "intent-v1",
+            "title": "Compiler Version",
+            "type": "string"
+          },
+          "intent_sha256": {
+            "title": "Intent Sha256",
+            "type": "string"
+          },
+          "prompt": {
+            "title": "Prompt",
+            "type": "string"
+          },
+          "segments": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Segments",
+            "type": "array"
+          }
+        },
+        "required": [
+          "prompt",
+          "segments",
+          "intent_sha256"
+        ],
+        "title": "CompiledIntent",
+        "type": "object"
+      },
+      "CompiledSpatialBrief": {
+        "additionalProperties": false,
+        "properties": {
+          "brief_sha256": {
+            "title": "Brief Sha256",
+            "type": "string"
+          },
+          "claim_boundary": {
+            "title": "Claim Boundary",
+            "type": "string"
+          },
+          "compiler_version": {
+            "const": "spatial-brief-v1",
+            "default": "spatial-brief-v1",
+            "title": "Compiler Version",
+            "type": "string"
+          },
+          "decision_contract": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Decision Contract",
+            "type": "array"
+          },
+          "provider_guidance": {
+            "title": "Provider Guidance",
+            "type": "string"
+          }
+        },
+        "required": [
+          "brief_sha256",
+          "provider_guidance",
+          "decision_contract",
+          "claim_boundary"
+        ],
+        "title": "CompiledSpatialBrief",
+        "type": "object"
+      },
+      "ErrorBody": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "request_id": {
+            "title": "Request Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "request_id"
+        ],
+        "title": "ErrorBody",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HealthResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "status": {
+            "const": "ok",
+            "default": "ok",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider"
+        ],
+        "title": "HealthResponse",
+        "type": "object"
+      },
+      "HeroAssetRef": {
+        "additionalProperties": false,
+        "properties": {
+          "mutation_policy": {
+            "const": "transform-only",
+            "default": "transform-only",
+            "title": "Mutation Policy",
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 64,
+            "minLength": 1,
+            "title": "Name",
+            "type": "string"
+          },
+          "sha256": {
+            "title": "Sha256",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "sha256"
+        ],
+        "title": "HeroAssetRef",
+        "type": "object"
+      },
+      "InpaintMetadata": {
+        "additionalProperties": false,
+        "properties": {
+          "height": {
+            "exclusiveMinimum": 0.0,
+            "title": "Height",
+            "type": "integer"
+          },
+          "input_sha256": {
+            "title": "Input Sha256",
+            "type": "string"
+          },
+          "mask_coverage": {
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Mask Coverage",
+            "type": "number"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "output_sha256": {
+            "title": "Output Sha256",
+            "type": "string"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "width": {
+            "exclusiveMinimum": 0.0,
+            "title": "Width",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "provider",
+          "model",
+          "width",
+          "height",
+          "mask_coverage",
+          "input_sha256",
+          "output_sha256"
+        ],
+        "title": "InpaintMetadata",
+        "type": "object"
+      },
+      "JobAccepted": {
+        "additionalProperties": false,
+        "properties": {
+          "compiled_prompt": {
+            "title": "Compiled Prompt",
+            "type": "string"
+          },
+          "intent_sha256": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Intent Sha256"
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "links": {
+            "$ref": "#/components/schemas/JobLinks"
+          },
+          "reused": {
+            "title": "Reused",
+            "type": "boolean"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "expired"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "job_id",
+          "status",
+          "reused",
+          "compiled_prompt",
+          "links"
+        ],
+        "title": "JobAccepted",
+        "type": "object"
+      },
+      "JobFailure": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "JobFailure",
+        "type": "object"
+      },
+      "JobLinks": {
+        "additionalProperties": false,
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "result"
+        ],
+        "title": "JobLinks",
+        "type": "object"
+      },
+      "JobView": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "failure": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/JobFailure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "job_id": {
+            "title": "Job Id",
+            "type": "string"
+          },
+          "links": {
+            "$ref": "#/components/schemas/JobLinks"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InpaintMetadata"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "progress": {
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Progress",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "expired"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "job_id",
+          "status",
+          "progress",
+          "created_at",
+          "updated_at",
+          "expires_at",
+          "links"
+        ],
+        "title": "JobView",
+        "type": "object"
+      },
+      "ReadyResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "active_jobs": {
+            "minimum": 0.0,
+            "title": "Active Jobs",
+            "type": "integer"
+          },
+          "max_concurrency": {
+            "exclusiveMinimum": 0.0,
+            "title": "Max Concurrency",
+            "type": "integer"
+          },
+          "max_records": {
+            "exclusiveMinimum": 0.0,
+            "title": "Max Records",
+            "type": "integer"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "status": {
+            "const": "ready",
+            "default": "ready",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider",
+          "active_jobs",
+          "max_records",
+          "max_concurrency"
+        ],
+        "title": "ReadyResponse",
+        "type": "object"
+      },
+      "SpatialDesignBrief": {
+        "additionalProperties": false,
+        "description": "Provisional spatial decision contract; not a client-owned production schema.",
+        "properties": {
+          "allowed_changes": {
+            "items": {
+              "enum": [
+                "hero-floor-plane",
+                "wall-tone-polygons"
+              ],
+              "type": "string"
+            },
+            "maxItems": 2,
+            "minItems": 1,
+            "title": "Allowed Changes",
+            "type": "array"
+          },
+          "atmosphere": {
+            "default": "mineral",
+            "enum": [
+              "ember",
+              "mineral",
+              "nocturne"
+            ],
+            "title": "Atmosphere",
+            "type": "string"
+          },
+          "hero_asset": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/HeroAssetRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "intervention_mode": {
+            "enum": [
+              "catalog-faithful-placement",
+              "generative-concept"
+            ],
+            "title": "Intervention Mode",
+            "type": "string"
+          },
+          "material_cues": {
+            "items": {
+              "enum": [
+                "boucle",
+                "bronze",
+                "limewash",
+                "smoked-oak"
+              ],
+              "type": "string"
+            },
+            "maxItems": 4,
+            "title": "Material Cues",
+            "type": "array"
+          },
+          "objective": {
+            "maxLength": 240,
+            "minLength": 20,
+            "title": "Objective",
+            "type": "string"
+          },
+          "preserve": {
+            "items": {
+              "enum": [
+                "architecture-shell",
+                "existing-furniture",
+                "openings"
+              ],
+              "type": "string"
+            },
+            "maxItems": 3,
+            "title": "Preserve",
+            "type": "array"
+          },
+          "project_context": {
+            "default": "hospitality-lounge",
+            "enum": [
+              "boutique-hotel",
+              "hospitality-lounge",
+              "retail-gallery"
+            ],
+            "title": "Project Context",
+            "type": "string"
+          }
+        },
+        "required": [
+          "intervention_mode",
+          "objective"
+        ],
+        "title": "SpatialDesignBrief",
+        "type": "object"
+      },
+      "StyleIntent": {
+        "additionalProperties": false,
+        "description": "Structured design direction; geometry remains governed by the hard mask.",
+        "properties": {
+          "materials": {
+            "items": {
+              "enum": [
+                "concrete",
+                "glass",
+                "metal",
+                "plaster",
+                "stone",
+                "textile",
+                "wood"
+              ],
+              "type": "string"
+            },
+            "maxItems": 4,
+            "title": "Materials",
+            "type": "array"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 240,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "palette": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 5,
+            "title": "Palette",
+            "type": "array"
+          },
+          "preserve_semantics": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 6,
+            "title": "Preserve Semantics",
+            "type": "array"
+          },
+          "room_type": {
+            "default": "living-room",
+            "enum": [
+              "bedroom",
+              "dining-room",
+              "home-office",
+              "kitchen",
+              "living-room"
+            ],
+            "title": "Room Type",
+            "type": "string"
+          },
+          "style": {
+            "enum": [
+              "contemporary",
+              "industrial",
+              "japandi",
+              "modern-calm",
+              "scandinavian",
+              "warm-minimal"
+            ],
+            "title": "Style",
+            "type": "string"
+          }
+        },
+        "required": [
+          "style"
+        ],
+        "title": "StyleIntent",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Provisional spatial-design and controlled-inpainting API with deterministic local evidence, structured briefs, transform-only product placement and a bounded non-durable job lifecycle.",
+    "title": "Interior Inpainting Orchestrator \u2014 Reference PoC",
+    "version": "0.3.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/health/live": {
+      "get": {
+        "operationId": "health_health_live_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health"
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "operationId": "ready_health_ready_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReadyResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Ready"
+      }
+    },
+    "/poc/v1/inpaint": {
+      "post": {
+        "operationId": "inpaint_poc_v1_inpaint_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_inpaint_poc_v1_inpaint_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "image/png": {}
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Invalid upload, mask, or prompt"
+          }
+        },
+        "summary": "Inpaint",
+        "tags": [
+          "v1 synchronous"
+        ]
+      }
+    },
+    "/poc/v2/intents/compile": {
+      "post": {
+        "operationId": "compile_style_intent_poc_v2_intents_compile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StyleIntent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompiledIntent"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Compile Style Intent",
+        "tags": [
+          "v2 jobs"
+        ]
+      }
+    },
+    "/poc/v2/jobs": {
+      "post": {
+        "operationId": "create_job_poc_v2_jobs_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 128,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_create_job_poc_v2_jobs_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobAccepted"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Idempotency-Key payload conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Invalid upload, mask, prompt, or intent"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Bounded job store is at capacity"
+          }
+        },
+        "summary": "Create Job",
+        "tags": [
+          "v2 jobs"
+        ]
+      }
+    },
+    "/poc/v2/jobs/{job_id}": {
+      "get": {
+        "operationId": "get_job_poc_v2_jobs__job_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JobView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Job",
+        "tags": [
+          "v2 jobs"
+        ]
+      }
+    },
+    "/poc/v2/jobs/{job_id}/result": {
+      "get": {
+        "operationId": "get_job_result_poc_v2_jobs__job_id__result_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "job_id",
+            "required": true,
+            "schema": {
+              "title": "Job Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "image/png": {}
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "410": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Gone"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Get Job Result",
+        "tags": [
+          "v2 jobs"
+        ]
+      }
+    },
+    "/poc/v3/briefs/compile": {
+      "post": {
+        "operationId": "compile_v3_spatial_brief_poc_v3_briefs_compile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SpatialDesignBrief"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompiledSpatialBrief"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Compile V3 Spatial Brief",
+        "tags": [
+          "v3 spatial design"
+        ]
+      }
+    },
+    "/poc/v3/placements/preview": {
+      "post": {
+        "operationId": "preview_v3_product_placement_poc_v3_placements_preview_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_preview_v3_product_placement_poc_v3_placements_preview_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              },
+              "image/png": {}
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorBody"
+                }
+              }
+            },
+            "description": "Invalid source, asset, or placement plane"
+          }
+        },
+        "summary": "Preview V3 Product Placement",
+        "tags": [
+          "v3 spatial design"
+        ]
+      }
+    }
+  }
+}

@@ -17,32 +17,37 @@ A focused, security-conscious reference implementation demonstrating the determi
 - deterministic local demo provider for zero-cost tests
 - optional Black Forest Labs FLUX.1 Fill adapter
 - synchronous `v1` compatibility route plus a bounded job-based `v2` API
-- deterministic, explainable `StyleIntent → prompt` compiler
-- bounded uploads, prompts, job records, concurrency, polling, retries and result downloads
+- provisional `v3` Spatial Brief compiler and deterministic transform-only product placement
+- deterministic, explainable `StyleIntent → prompt` and `SpatialDesignBrief → decision contract` compilers
+- bounded uploads, prompts, product assets, placement planes, job records, concurrency, polling, retries and result downloads
 - idempotent job submission with payload-conflict detection
 - unit, property-oriented, lifecycle, API and exported-OpenAPI drift tests
 - non-root Docker image and CI baseline
-- portfolio-grade static showcase with a browser-local boundary lab and Visual Restyle Studio
+- portfolio-grade static showcase with cinematic 2.5D scrollytelling, a browser-local Boundary Lab, legacy mask Studio and Spatial Design Studio
 
-> **Live showcase:** [Open the GitHub Pages experience](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/) — inspect the proof and architecture, run the deterministic boundary lab, or open the [Visual Restyle Studio](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/studio.html) to walk through `Intent → Mask → Preview → Verify` without installing anything.
+> **Live showcase:** [Open the GitHub Pages experience](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/) — inspect the evidence or open the [Spatial Design Studio](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/spatial.html) for the browser-local `Brief → Locks → Placement → Variants → Handoff` vertical slice. The prior [Visual Restyle Studio](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/studio.html) remains available as focused mask-authoring evidence.
 
 > **Important:** This repository is a pre-contract reference PoC. It does not implement or claim compatibility with the client's finalized API contracts because those contracts have not been supplied. The local demo provider is deliberately non-generative and must never be represented as an AI-quality benchmark.
 
-> **Current release:** `v0.2.0` adds the bounded job API, Style Intent compiler and Visual Restyle Studio. See the [changelog](CHANGELOG.md), [release notes](docs/RELEASE_V0.2.0.md) and [public verification report](reports/PHASE_02_PUBLIC_RELEASE_VERIFICATION.md).
+> **Release status:** `v0.2.0` remains the current stable public release. The working tree is an unreleased `v0.3.0` candidate adding Spatial Briefs, transform-only product placement, variant review and a cinematic landing experience. It must not be tagged or published until Git metadata, user approval, CI, Pages deployment and hosted-browser gates are available. See the [changelog](CHANGELOG.md), [Phase 05 report](reports/PHASE_05_SPATIAL_DESIGN_STUDIO.md) and [Phase 06 report](reports/PHASE_06_CINEMATIC_SPATIAL_SHOWCASE.md).
 
 ## GitHub Pages showcase
 
 The `site/` directory is a dependency-free static technical showcase designed for GitHub Pages. It includes:
 
 - an accessible, responsive, dark/light portfolio experience;
+- an original full-screen cinematic hero and reversible `Atmosphere → Analyze → Place → Prove` scroll story using local aligned frames and CSS perspective;
+- static sequential fallbacks for reduced-motion and no-JavaScript contexts, plus solid reduced-transparency and increased-contrast states;
 - an interactive before/after and authorized-mask inspector;
 - a browser-local image + mask boundary lab with downloadable PNG output;
-- a three-step Visual Restyle Studio with structured intent, mask drawing/import, deterministic job simulation, explainable prompt and protected-pixel evidence;
+- the prior Visual Restyle Studio with structured intent, mask drawing/import, deterministic job simulation, explainable prompt and protected-pixel evidence;
+- a five-stage Spatial Design Studio with structured brief, scene locks, four-corner hero placement, controlled variants, review selection and local proof exports;
+- the original, accessible Luminous Glass control system with solid, reduced-transparency, reduced-motion and increased-contrast states;
 - architecture, security, CI evidence and explicit open-risk sections;
 - no analytics, cookies, external scripts, API calls or uploaded-file transmission;
 - a restrictive Content Security Policy with outbound connections disabled.
 
-GitHub Pages serves static files only—it does **not** run the FastAPI backend or hold provider credentials. The browser lab is clearly labelled deterministic and non-AI. See [`docs/GITHUB_PAGES.md`](docs/GITHUB_PAGES.md) for deployment and review instructions.
+GitHub Pages serves static files only—it does **not** run the FastAPI backend or hold provider credentials. Browser labs are clearly labelled deterministic and non-AI; the cinematic lounge frames are separately labelled illustrative and are not represented as live-model or deterministic evidence. See [`docs/GITHUB_PAGES.md`](docs/GITHUB_PAGES.md) for deployment and review instructions.
 
 Preview it locally:
 
@@ -77,7 +82,7 @@ uvicorn inpainting_poc.api:app --reload
 
 Open `http://localhost:8000/docs`.
 
-## API surface — v0.2.0
+## API surface — unreleased v0.3.0 candidate
 
 | Method | Route | Purpose |
 |---|---|---|
@@ -88,8 +93,10 @@ Open `http://localhost:8000/docs`.
 | `POST` | `/poc/v2/jobs` | Accept a bounded asynchronous job and return `202` |
 | `GET` | `/poc/v2/jobs/{job_id}` | Poll lifecycle, progress, metadata or safe failure |
 | `GET` | `/poc/v2/jobs/{job_id}/result` | Retrieve the successful PNG result |
+| `POST` | `/poc/v3/briefs/compile` | Canonicalize and explain a provisional Spatial Design Brief |
+| `POST` | `/poc/v3/placements/preview` | Deterministic projective product placement with exact protected restoration |
 
-The generated contract is committed at [`docs/openapi-v0.2.0.json`](docs/openapi-v0.2.0.json); request/response examples, limits and lifecycle semantics are documented in [`docs/API_V2.md`](docs/API_V2.md). Regenerate the schema after API changes with:
+The generated candidate contract is committed at [`docs/openapi-v0.3.0.json`](docs/openapi-v0.3.0.json). v2 lifecycle semantics remain in [`docs/API_V2.md`](docs/API_V2.md); the provisional Spatial Design surface is documented in [`docs/API_V3.md`](docs/API_V3.md). Regenerate the schema after API changes with:
 
 ```bash
 python scripts/export_openapi.py
@@ -128,6 +135,17 @@ The reference manager is deliberately **in-memory and non-durable**. Records, co
 - a SHA-256 hash of the canonical intent.
 
 Semantic preservation text is guidance only. The aligned hard mask and final compositing invariant remain the geometric authority.
+
+### Spatial Brief and product placement — provisional v3
+
+`SpatialDesignBrief` separates two intervention modes:
+
+- `generative-concept`: exploratory art direction inside approved surface regions; no catalog-fidelity claim;
+- `catalog-faithful-placement`: a hashed product raster is immutable source material and only projective geometry, bounded contact shadow and foreground occlusion order may change.
+
+`POST /poc/v3/placements/preview` validates a normalized TL/TR/BR/BL quadrilateral, rejects degenerate or self-intersecting geometry, performs bounded OpenCV perspective placement and restores the source exactly outside the authorized destination plane. The PNG response carries a proof header with source/asset/output hashes, transform, coverage and protected-pixel drift.
+
+In this reference PoC, “catalog-faithful” means **no mutation of the supplied source raster before geometric compositing**. It does not certify photometric appearance, physical material properties, manufacturing identity, client catalog compatibility or live-provider performance.
 
 ## Live FLUX.1 Fill
 

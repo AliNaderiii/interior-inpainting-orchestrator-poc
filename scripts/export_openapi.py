@@ -6,7 +6,7 @@ from pathlib import Path
 from inpainting_poc.api import app
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "docs" / "openapi-v0.2.0.json"
+OUTPUT = ROOT / "docs" / "openapi-v0.3.0.json"
 
 
 def main() -> None:

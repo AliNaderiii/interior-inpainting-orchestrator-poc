@@ -58,15 +58,24 @@ function initNavigation() {
   updateHeader();
   window.addEventListener("scroll", updateHeader, { passive: true });
 
-  toggle?.addEventListener("click", () => {
-    const open = toggle.getAttribute("aria-expanded") !== "true";
-    toggle.setAttribute("aria-expanded", String(open));
+  const setNavigationOpen = (open) => {
+    toggle?.setAttribute("aria-expanded", String(open));
     nav?.classList.toggle("is-open", open);
+  };
+
+  toggle?.addEventListener("click", () => {
+    setNavigationOpen(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && toggle?.getAttribute("aria-expanded") === "true") {
+      setNavigationOpen(false);
+      toggle.focus();
+    }
   });
 
   $$("a", nav).forEach((link) => link.addEventListener("click", () => {
-    toggle?.setAttribute("aria-expanded", "false");
-    nav?.classList.remove("is-open");
+    setNavigationOpen(false);
   }));
 }
 

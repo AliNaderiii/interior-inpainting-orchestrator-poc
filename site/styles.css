@@ -69,8 +69,8 @@ canvas { display: block; max-width: 100%; }
 .ambient-one { width: 600px; height: 600px; top: -300px; right: -180px; background: radial-gradient(circle, rgba(51, 217, 143, .12), transparent 66%); }
 .ambient-two { width: 560px; height: 560px; top: 820px; left: -360px; background: radial-gradient(circle, rgba(51, 178, 217, .08), transparent 68%); }
 
-.site-header { position: fixed; inset: 0 0 auto; height: var(--header-height); z-index: 50; border-bottom: 1px solid transparent; transition: background .25s, border-color .25s, backdrop-filter .25s; }
-.site-header.is-scrolled { background: color-mix(in srgb, var(--bg) 88%, transparent); border-color: var(--line); backdrop-filter: blur(18px); }
+.site-header { position: fixed; inset: 0 0 auto; height: var(--header-height); z-index: 50; border-bottom: 1px solid transparent; transition: background-color .25s, border-color .25s; }
+.site-header.is-scrolled { background: color-mix(in srgb, var(--bg) 88%, transparent); border-color: var(--line); -webkit-backdrop-filter: saturate(125%) blur(18px); backdrop-filter: saturate(125%) blur(18px); }
 .nav-shell { height: 100%; display: flex; align-items: center; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; flex-shrink: 0; }
 .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--line-strong); border-radius: 11px; background: var(--accent-soft); color: var(--accent); }
@@ -374,6 +374,27 @@ tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
   .truth-card { padding: 31px 22px; }
   .cta-card { padding: 36px 22px; }
   th, td { min-width: 130px; padding: 12px 14px; }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header.is-scrolled,
+  .site-header { background: var(--bg); }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-header.is-scrolled,
+  .site-header {
+    background: var(--bg);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .ambient { display: none; }
+}
+
+@media (prefers-contrast: more) {
+  :root { --line: rgba(224, 244, 236, .34); --line-strong: rgba(232, 250, 242, .62); --muted: #c5d2cd; --faint: #abbab4; }
+  [data-theme="light"] { --line: rgba(14, 42, 37, .34); --line-strong: rgba(14, 42, 37, .62); --muted: #354c46; --faint: #4f645e; }
+  .button, .lab-grid, .visual-frame { border-width: 2px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

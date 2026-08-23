@@ -5,7 +5,8 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "site" / "assets" / "social-preview.png"
+ASSETS = ROOT / "site" / "assets"
+OUTPUT = ASSETS / "social-preview.png"
 WIDTH = 1200
 HEIGHT = 630
 
@@ -28,109 +29,136 @@ def font(size: int, *, bold: bool = False, mono: bool = False) -> ImageFont.Free
     raise RuntimeError(f"A compatible TrueType font is required: {name}")
 
 
+def cover(source: Image.Image, size: tuple[int, int]) -> Image.Image:
+    target_width, target_height = size
+    scale = max(target_width / source.width, target_height / source.height)
+    resized = source.resize(
+        (round(source.width * scale), round(source.height * scale)),
+        Image.Resampling.LANCZOS,
+    )
+    left = max(0, (resized.width - target_width) // 2)
+    top = max(0, (resized.height - target_height) // 2)
+    return resized.crop((left, top, left + target_width, top + target_height))
+
+
+def add_vignette(image: Image.Image) -> None:
+    overlay = Image.new("RGBA", image.size, (0, 0, 0, 0))
+    pixels = overlay.load()
+    for y in range(HEIGHT):
+        vertical = max(abs((y / HEIGHT) - 0.5) * 2 - 0.52, 0) / 0.48
+        for x in range(WIDTH):
+            horizontal = max(0.0, 1 - x / 820)
+            alpha = round(min(242, 18 + horizontal**1.55 * 218 + vertical * 36))
+            pixels[x, y] = (2, 14, 16, alpha)
+    image.alpha_composite(overlay)
+
+
 def rounded_card(
     draw: ImageDraw.ImageDraw,
     box: tuple[int, int, int, int],
-    *,
-    fill: tuple[int, int, int],
-    outline: tuple[int, int, int],
+    label: str,
+    value: str,
+    accent: tuple[int, int, int, int],
 ) -> None:
-    draw.rounded_rectangle(box, radius=12, fill=fill, outline=outline, width=1)
+    left, top, _, _ = box
+    draw.rounded_rectangle(
+        box,
+        radius=13,
+        fill=(6, 23, 25, 218),
+        outline=(220, 245, 237, 38),
+    )
+    draw.ellipse((left + 15, top + 20, left + 23, top + 28), fill=accent)
+    draw.text((left + 34, top + 11), label, font=font(7, mono=True), fill=(105, 132, 127, 255))
+    draw.text(
+        (left + 34, top + 29),
+        value,
+        font=font(10, bold=True, mono=True),
+        fill=(224, 236, 229, 255),
+    )
 
 
 def create_preview() -> None:
-    image = Image.new("RGB", (WIDTH, HEIGHT), "#07100f")
-    draw = ImageDraw.Draw(image)
+    room = Image.open(ASSETS / "cinematic-lounge-concept.jpg").convert("RGB")
+    image = cover(room, (WIDTH, HEIGHT)).convert("RGBA")
+    image = image.filter(ImageFilter.GaussianBlur(0.12))
+    add_vignette(image)
+    draw = ImageDraw.Draw(image, "RGBA")
 
-    for y in range(HEIGHT):
-        ratio = y / HEIGHT
-        color = (
-            round(7 + 8 * ratio),
-            round(16 + 20 * ratio),
-            round(15 + 14 * ratio),
-        )
-        draw.line((0, y, WIDTH, y), fill=color)
-    for x in range(0, WIDTH, 48):
-        draw.line((x, 0, x, HEIGHT), fill=(15, 30, 26), width=1)
-    for y in range(0, HEIGHT, 48):
-        draw.line((0, y, WIDTH, y), fill=(15, 30, 26), width=1)
+    ink = (241, 246, 238, 255)
+    soft = (189, 207, 200, 255)
+    faint = (102, 132, 126, 255)
+    cyan = (103, 232, 225, 255)
+    lime = (185, 237, 131, 255)
+    amber = (241, 195, 126, 255)
 
-    glow = Image.new("RGBA", image.size, (0, 0, 0, 0))
-    glow_draw = ImageDraw.Draw(glow)
-    glow_draw.ellipse((750, -290, 1320, 280), fill=(71, 232, 158, 56))
-    glow = glow.filter(ImageFilter.GaussianBlur(95))
-    image = Image.alpha_composite(image.convert("RGBA"), glow)
-    draw = ImageDraw.Draw(image)
-
-    accent = (119, 242, 181, 255)
-    text = (241, 247, 244, 255)
-    muted = (151, 171, 164, 255)
-    faint = (102, 128, 119, 255)
-    line = (39, 73, 62, 255)
-    surface = (14, 29, 25, 255)
-
+    # Original repository mark and product identity.
     draw.rounded_rectangle(
-        (76, 72, 128, 124), radius=14, fill=(11, 32, 26, 255), outline=(38, 128, 93, 255)
+        (68, 50, 114, 96),
+        radius=13,
+        fill=(10, 37, 39, 235),
+        outline=(103, 232, 225, 58),
     )
-    draw.polygon(
-        ((88, 88), (102, 80), (116, 88), (116, 111), (102, 119), (88, 111)), outline=accent, width=2
-    )
-    draw.line(((94, 101), (100, 107), (111, 92)), fill=accent, width=3, joint="curve")
-    draw.text((144, 75), "INPAINT / ORCHESTRATOR", font=font(18, bold=True), fill=text)
+    draw.line((82, 65, 100, 65), fill=ink, width=4)
+    draw.line((86, 73, 101, 87), fill=cyan, width=4)
+    draw.line((81, 87, 97, 87), fill=ink, width=4)
+    draw.text((130, 51), "INPAINT / ORCHESTRATOR", font=font(17, bold=True), fill=ink)
     draw.text(
-        (144, 103), "REFERENCE POC  ·  EXECUTABLE EVIDENCE", font=font(10, mono=True), fill=faint
+        (130, 78),
+        "SPATIAL POC  ·  v0.3 CANDIDATE",
+        font=font(8, mono=True),
+        fill=faint,
     )
 
-    draw.text((76, 200), "Controlled edits.", font=font(64, bold=True), fill=text)
-    draw.text((76, 276), "Verifiable boundaries.", font=font(64, bold=True), fill=accent)
+    draw.ellipse((69, 130, 78, 139), fill=cyan)
     draw.text(
-        (76, 377),
-        "Provider-neutral image inpainting orchestration with exact",
-        font=font(21),
-        fill=muted,
-    )
-    draw.text(
-        (76, 411),
-        "restoration of every protected pixel.",
-        font=font(21),
-        fill=muted,
+        (89, 128),
+        "SCROLL-DIRECTED SPATIAL STORY",
+        font=font(8, bold=True, mono=True),
+        fill=soft,
     )
 
-    cards = (
-        (76, 506, 301, 562, "PROTECTED DRIFT", "0 PIXELS", True),
-        (317, 506, 542, 562, "RUNTIME MATRIX", "PYTHON 3.11-3.13", False),
-        (558, 506, 783, 562, "SECURITY POSTURE", "BOUNDARY-FIRST", False),
+    draw.text((67, 161), "Direct the space.", font=font(61, bold=True), fill=ink)
+    draw.text((67, 231), "Prove", font=font(65, bold=True), fill=amber)
+    prove_width = draw.textlength("Prove", font=font(65, bold=True))
+    draw.text((79 + prove_width, 231), "every", font=font(65, bold=True), fill=(143, 226, 211, 255))
+    draw.text((67, 303), "decision.", font=font(65, bold=True), fill=cyan)
+    draw.text(
+        (70, 396),
+        "Structured briefs, scene authority and catalog-faithful placement—",
+        font=font(15),
+        fill=soft,
     )
-    for left, top, right, bottom, label, value, highlighted in cards:
-        fill = (11, 38, 30) if highlighted else surface[:3]
-        border = (33, 137, 98) if highlighted else line[:3]
-        rounded_card(draw, (left, top, right, bottom), fill=fill, outline=border)
-        text_left = left + 20
-        if highlighted:
-            draw.ellipse((left + 20, top + 20, left + 34, top + 34), fill=accent)
-            text_left = left + 47
-        draw.text((text_left, top + 10), label, font=font(8, mono=True), fill=faint)
-        draw.text((text_left, top + 27), value, font=font(13, bold=True, mono=True), fill=text)
+    draw.text(
+        (70, 422),
+        "composed as one professional art-direction workflow.",
+        font=font(15),
+        fill=soft,
+    )
 
-    box = (1010, 480, 1096, 566)
-    draw.rectangle(box, outline=(33, 117, 84, 255), width=1)
-    center_x, center_y = 1053, 523
-    draw.line((1019, center_y, 1087, center_y), fill=(56, 139, 105, 255), width=1)
-    draw.line((center_x, 489, center_x, 557), fill=(56, 139, 105, 255), width=1)
-    draw.ellipse(
-        (center_x - 16, center_y - 16, center_x + 16, center_y + 16),
-        fill=(11, 45, 34, 255),
-        outline=(50, 159, 113, 255),
-    )
-    draw.line(
-        ((center_x - 8, center_y), (center_x - 2, center_y + 6), (center_x + 10, center_y - 9)),
-        fill=accent,
-        width=3,
-        joint="curve",
+    rounded_card(draw, (68, 487, 243, 548), "INTERVENTION", "CONCEPT + PLACE", amber)
+    rounded_card(draw, (257, 487, 425, 548), "PROTECTED DRIFT", "0 PIXELS", lime)
+    rounded_card(draw, (439, 487, 588, 548), "RUNTIME", "BROWSER-LOCAL", cyan)
+
+    # Truth boundary in the visual itself.
+    note = (860, 531, 1135, 579)
+    draw.rounded_rectangle(note, radius=12, fill=(5, 21, 23, 222), outline=(224, 245, 238, 42))
+    draw.rounded_rectangle((873, 542, 899, 568), radius=7, fill=(77, 63, 37, 235))
+    draw.text((882, 547), "I", font=font(8, bold=True, mono=True), fill=amber)
+    draw.text((910, 540), "ILLUSTRATIVE CONCEPT FRAME", font=font(7, bold=True), fill=soft)
+    draw.text((910, 554), "Local art direction · not live-model evidence", font=font(7), fill=faint)
+
+    draw.line((68, 592, 1135, 592), fill=(225, 245, 238, 28), width=1)
+    draw.text(
+        (68, 603),
+        "ATMOSPHERE  →  ANALYZE  →  PLACE  →  PROVE",
+        font=font(8, bold=True, mono=True),
+        fill=(116, 159, 151, 255),
     )
 
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    image.convert("RGB").save(OUTPUT, format="PNG", optimize=True)
+    # Adaptive palette keeps the photographic Open Graph card below a practical static-host budget.
+    output = image.convert("RGB").quantize(colors=256, method=Image.Quantize.MEDIANCUT)
+    output.save(OUTPUT, format="PNG", optimize=True)
     print(f"Wrote {OUTPUT.relative_to(ROOT)} ({WIDTH}x{HEIGHT})")
 
 
