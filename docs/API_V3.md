@@ -1,6 +1,6 @@
 # Provisional Spatial Design API — v3
 
-**Status:** unreleased Phase 05 reference contract
+**Status:** released v0.3.0 reference contract
 **Compatibility:** v1 synchronous inpainting and v2 jobs remain available
 **OpenAPI:** [`openapi-v0.3.0.json`](openapi-v0.3.0.json)
 
