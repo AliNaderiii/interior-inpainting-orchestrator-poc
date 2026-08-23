@@ -29,7 +29,7 @@ A focused, security-conscious reference implementation demonstrating the determi
 
 > **Important:** This repository is a pre-contract reference PoC. It does not implement or claim compatibility with the client's finalized API contracts because those contracts have not been supplied. The local demo provider is deliberately non-generative and must never be represented as an AI-quality benchmark.
 
-> **Release status:** `v0.2.0` remains the current stable public release. The working tree is an unreleased `v0.3.0` candidate adding Spatial Briefs, transform-only product placement, variant review and a cinematic landing experience. It must not be tagged or published until Git metadata, user approval, CI, Pages deployment and hosted-browser gates are available. See the [changelog](CHANGELOG.md), [Phase 05 report](reports/PHASE_05_SPATIAL_DESIGN_STUDIO.md) and [Phase 06 report](reports/PHASE_06_CINEMATIC_SPATIAL_SHOWCASE.md).
+> **Release status:** `v0.3.0` is the current stable public release, adding Spatial Briefs, transform-only product placement, variant review and a cinematic landing experience. The release was promoted only after owner approval, multi-version CI, GitHub Pages deployment and hosted-browser verification. See the [changelog](CHANGELOG.md), [Phase 05 report](reports/PHASE_05_SPATIAL_DESIGN_STUDIO.md) and [Phase 06 report](reports/PHASE_06_CINEMATIC_SPATIAL_SHOWCASE.md).
 
 ## GitHub Pages showcase
 
@@ -82,7 +82,7 @@ uvicorn inpainting_poc.api:app --reload
 
 Open `http://localhost:8000/docs`.
 
-## API surface — unreleased v0.3.0 candidate
+## API surface — v0.3.0
 
 | Method | Route | Purpose |
 |---|---|---|
@@ -96,7 +96,7 @@ Open `http://localhost:8000/docs`.
 | `POST` | `/poc/v3/briefs/compile` | Canonicalize and explain a provisional Spatial Design Brief |
 | `POST` | `/poc/v3/placements/preview` | Deterministic projective product placement with exact protected restoration |
 
-The generated candidate contract is committed at [`docs/openapi-v0.3.0.json`](docs/openapi-v0.3.0.json). v2 lifecycle semantics remain in [`docs/API_V2.md`](docs/API_V2.md); the provisional Spatial Design surface is documented in [`docs/API_V3.md`](docs/API_V3.md). Regenerate the schema after API changes with:
+The generated v0.3.0 contract is committed at [`docs/openapi-v0.3.0.json`](docs/openapi-v0.3.0.json). v2 lifecycle semantics remain in [`docs/API_V2.md`](docs/API_V2.md); the provisional Spatial Design surface is documented in [`docs/API_V3.md`](docs/API_V3.md). Regenerate the schema after API changes with:
 
 ```bash
 python scripts/export_openapi.py

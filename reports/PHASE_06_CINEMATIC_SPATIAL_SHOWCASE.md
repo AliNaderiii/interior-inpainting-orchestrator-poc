@@ -1,6 +1,6 @@
 # Phase 06 — Cinematic Spatial Showcase
 
-**Status:** LOCAL IMPLEMENTATION + VALIDATION COMPLETE · RELEASE NO-GO
+**Status:** HOSTED VERIFIED · GO FOR v0.3.0 RELEASE
 **Date:** 2026-08-23
 **Scope:** public GitHub Pages showcase only; Spatial Studio remains a productivity-focused tool surface
 **Change boundary:** this repository only
@@ -295,21 +295,39 @@ The four desktop decision captures are 1440 × 1000. Mobile captures are 390 × 
 - All new public-facing claims distinguish illustrative art direction from executable deterministic evidence.
 - No file in `Smart-Interior-Decor-Recommendation-Platform` was read for copying or modified during implementation.
 
-## 12. Residual gates and decision
+## 12. Hosted verification and release decision
 
-### Locally accepted
+### Git and review evidence
 
-The Phase 06 implementation satisfies the requested cinematic, spatial, scroll-responsive and clean-room experience. The page visibly changes scene analysis, camera, geometry, product plane and proof state with scroll while remaining useful on mobile and in reduced-motion/no-JavaScript contexts.
+- Candidate commit: `bf6c8e50e0f4d1bc6fc2119f188e17bb061514d3`.
+- Pull request: `#1`, merged to `main` as `7da91697ed9ce8fe547b16904950a5c9e3727df6`.
+- Pull-request CI run `32650582673`: **PASS**, three Python jobs in 34 seconds.
+- Post-merge CI run `32650674287`: **PASS**, three Python jobs in 37 seconds.
+- Pages run `32650674293`: **PASS**, validation and deployment in 24 seconds.
+- Pages artifact digest: `sha256:f9be869501e2d981f9dba5940f9bbd26ff68c45a35c07cec5257a6263932c172`.
 
-### Still blocked
+### Hosted Chromium verification
 
-- The workspace has no `.git` metadata, so no commit, diff review, tag or release can be created here.
-- The new candidate has not been deployed to GitHub Pages; hosted path, cache, CSP console, Web Vitals and action provenance are unverified.
-- Final visual approval from the repository owner is still required.
-- Live-provider quality, production queues, automatic depth/segmentation and client-contract compatibility remain outside this phase.
+The deployed Pages site was tested at `https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/` after the merge:
+
+- desktop cinematic stages `01 → 02 → 03 → 04`: **PASS**;
+- reverse scroll state: **PASS**;
+- desktop and 390 px mobile horizontal overflow: **0 px**;
+- console errors and failed static requests: **0**;
+- reduced-motion sequence: **PASS**;
+- JavaScript-disabled sequence: **PASS**;
+- catalog-faithful placement handoff: **PASS**, protected drift `0 px`;
+- Generative Concept route: **PASS**;
+- hosted observation: LCP `540 ms`, CLS `0`, one load long task.
+
+These timings are a controlled hosted regression observation, not field Web Vitals.
+
+### Remaining product boundaries
+
+Live-provider quality, production queues, automatic depth/segmentation and compatibility with an undisclosed client contract remain outside this release. They do not block publication of the bounded reference PoC because the interface and documentation state those limits explicitly.
 
 ### Release decision
 
-> **Phase 06 local implementation: PASS. `v0.3.0` publication: NO-GO.**
+> **Phase 06: PASS. `v0.3.0` release: GO after the release-finalization commit passes CI and Pages deployment.**
 
-`v0.2.0` remains the stable public release. Continue to Git/Release Candidate operations only after owner approval and restoration of Git metadata, then rerun CI, Pages deployment and hosted-browser verification against the exact candidate commit.
+The release tag must point to the exact verified finalization commit. No additional code or asset changes may be introduced between final verification and tagging.

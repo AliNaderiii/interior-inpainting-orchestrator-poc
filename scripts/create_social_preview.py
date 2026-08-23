@@ -104,7 +104,7 @@ def create_preview() -> None:
     draw.text((130, 51), "INPAINT / ORCHESTRATOR", font=font(17, bold=True), fill=ink)
     draw.text(
         (130, 78),
-        "SPATIAL POC  ·  v0.3 CANDIDATE",
+        "SPATIAL POC  ·  v0.3 RELEASE",
         font=font(8, mono=True),
         fill=faint,
     )

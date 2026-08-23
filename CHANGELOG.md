@@ -2,7 +2,7 @@
 
 All notable changes to this reference implementation are recorded here. The project follows semantic versioning for its public PoC surface; a version does not imply compatibility with an undisclosed client contract.
 
-## [Unreleased] — 0.3.0 candidate
+## [0.3.0] — 2026-08-23
 
 ### Added
 
@@ -18,7 +18,7 @@ All notable changes to this reference implementation are recorded here. The proj
 - Provisional `SpatialDesignBrief` compiler at `POST /poc/v3/briefs/compile`.
 - Deterministic transform-only placement preview at `POST /poc/v3/placements/preview`.
 - Placement geometry validation, alpha compositing, proof headers and exact authoritative restoration outside the destination plane.
-- Exported candidate OpenAPI document at `docs/openapi-v0.3.0.json` plus `docs/API_V3.md`.
+- Exported v0.3.0 OpenAPI document at `docs/openapi-v0.3.0.json` plus `docs/API_V3.md`.
 
 ### Preserved
 
@@ -36,7 +36,7 @@ All notable changes to this reference implementation are recorded here. The proj
 - Generative Concept and Catalog-faithful Placement are separate modes and claims.
 - “Catalog-faithful” means immutable source raster plus allowed geometric compositing in this PoC; it is not photometric, manufacturing or catalog certification.
 - Automatic depth, segmentation, provider quality, client contract compatibility, production queues and durable provenance remain open gates.
-- No release, tag or deployment may be created while Git metadata and hosted release gates are unavailable.
+- Release promotion requires an exact tagged commit with passing CI, successful Pages deployment and hosted-browser verification.
 
 ## [0.2.0] — 2026-08-23
 
