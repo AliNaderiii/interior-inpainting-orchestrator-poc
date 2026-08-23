@@ -15,6 +15,7 @@ ALLOWED_SUFFIXES = {
     "",
     ".css",
     ".html",
+    ".jpg",
     ".js",
     ".json",
     ".png",
@@ -84,8 +85,19 @@ def validate() -> list[str]:
         "studio.html",
         "studio.css",
         "studio.js",
+        "spatial.html",
+        "spatial.css",
+        "spatial.js",
+        "cinematic.css",
+        "cinematic.js",
         ".nojekyll",
         "assets/social-preview.png",
+        "assets/spatial-lounge-source.png",
+        "assets/spatial-lounge-occlusion.png",
+        "assets/spatial-hero-carpet.png",
+        "assets/spatial-product-card.png",
+        "assets/cinematic-lounge-concept.jpg",
+        "assets/cinematic-lounge-analysis.jpg",
     )
     for name in required:
         if not (SITE / name).is_file():
@@ -136,7 +148,10 @@ def validate() -> list[str]:
         "not generative quality",
         "Client-owned OpenAPI and JSON Schemas",
         "POST /poc/v2/jobs",
-        "Launch Visual Restyle Studio",
+        "Enter Spatial Studio",
+        'href="spatial.html"',
+        "SCROLL-DIRECTED SPATIAL STORY",
+        "Illustrative concept frame",
     ):
         if claim_boundary not in index:
             errors.append(f"Missing scope language: {claim_boundary}")
@@ -147,6 +162,11 @@ def validate() -> list[str]:
 
     javascript = (SITE / "app.js").read_text(encoding="utf-8")
     studio_javascript = (SITE / "studio.js").read_text(encoding="utf-8")
+    spatial_javascript = (SITE / "spatial.js").read_text(encoding="utf-8")
+    spatial_html = (SITE / "spatial.html").read_text(encoding="utf-8")
+    spatial_css = (SITE / "spatial.css").read_text(encoding="utf-8")
+    cinematic_javascript = (SITE / "cinematic.js").read_text(encoding="utf-8")
+    cinematic_css = (SITE / "cinematic.css").read_text(encoding="utf-8")
     for javascript_path in SITE.glob("*.js"):
         browser_code = javascript_path.read_text(encoding="utf-8")
         for network_api in ("fetch(", "XMLHttpRequest", "WebSocket", "sendBeacon("):
@@ -160,6 +180,58 @@ def validate() -> list[str]:
     for studio_limit in ("MAX_BYTES", "MAX_PIXELS", "SUPPORTED_TYPES"):
         if studio_limit not in studio_javascript:
             errors.append(f"Missing studio resource control: {studio_limit}")
+    for spatial_limit in (
+        "MAX_PRODUCT_BYTES",
+        "MAX_PRODUCT_PIXELS",
+        "URL.revokeObjectURL",
+        "lastProtectedDrift",
+    ):
+        if spatial_limit not in spatial_javascript:
+            errors.append(f"Missing spatial resource/proof control: {spatial_limit}")
+
+    for marker in (
+        "Catalog-faithful placement",
+        "Generative concept",
+        "HERO PLANE · EDITABLE",
+        "No provider call · no upload transmission",
+        "does not claim live model quality",
+        "Reference boundary",
+    ):
+        if marker not in spatial_html:
+            errors.append(f"Missing Spatial Studio boundary/workflow marker: {marker}")
+
+    for fallback in (
+        "@supports not ((backdrop-filter:",
+        "prefers-reduced-transparency",
+        "prefers-reduced-motion",
+        "prefers-contrast: more",
+        'html[data-transparency="reduced"]',
+    ):
+        if fallback not in spatial_css:
+            errors.append(f"Missing Luminous Glass fallback: {fallback}")
+    if "transition: backdrop-filter" in spatial_css or "transition: blur" in spatial_css:
+        errors.append("Luminous Glass must not animate blur or backdrop-filter")
+
+    for cinematic_control in (
+        "requestAnimationFrame",
+        'matchMedia("(prefers-reduced-motion: reduce)")',
+        "data-cinematic-active",
+        "passive: true",
+    ):
+        if cinematic_control not in cinematic_javascript:
+            errors.append(f"Missing cinematic motion/performance control: {cinematic_control}")
+    for cinematic_fallback in (
+        "prefers-reduced-motion: reduce",
+        "prefers-reduced-transparency: reduce",
+        "prefers-contrast: more",
+        "@supports not ((backdrop-filter:",
+    ):
+        if cinematic_fallback not in cinematic_css:
+            errors.append(f"Missing cinematic accessibility fallback: {cinematic_fallback}")
+    if "infinite" in cinematic_css or "autoplay" in index:
+        errors.append("Cinematic showcase must not contain unbounded motion or autoplay media")
+    if "transition: backdrop-filter" in cinematic_css or "transition: blur" in cinematic_css:
+        errors.append("Cinematic showcase must not animate blur or backdrop-filter")
 
     for workflow_name in ("ci.yml", "pages.yml"):
         workflow = (ROOT / ".github" / "workflows" / workflow_name).read_text(encoding="utf-8")
@@ -188,6 +260,34 @@ def validate() -> list[str]:
     social_dimensions = read_png_dimensions(SITE / "assets" / "social-preview.png")
     if social_dimensions != (1200, 630):
         errors.append(f"Social preview geometry mismatch: {social_dimensions}")
+    if (SITE / "assets" / "social-preview.png").stat().st_size > 500_000:
+        errors.append("Social preview exceeds 500 KB performance budget")
+
+    spatial_dimensions = {
+        name: read_png_dimensions(SITE / "assets" / name)
+        for name in (
+            "spatial-lounge-source.png",
+            "spatial-lounge-occlusion.png",
+            "spatial-hero-carpet.png",
+            "spatial-product-card.png",
+        )
+    }
+    expected_spatial_dimensions = {
+        "spatial-lounge-source.png": (1200, 800),
+        "spatial-lounge-occlusion.png": (1200, 800),
+        "spatial-hero-carpet.png": (720, 440),
+        "spatial-product-card.png": (1400, 900),
+    }
+    if spatial_dimensions != expected_spatial_dimensions:
+        errors.append(f"Spatial asset geometry mismatch: {spatial_dimensions}")
+
+    for name in ("cinematic-lounge-concept.jpg", "cinematic-lounge-analysis.jpg"):
+        cinematic_path = SITE / "assets" / name
+        cinematic_bytes = cinematic_path.read_bytes()
+        if not cinematic_bytes.startswith(b"\xff\xd8"):
+            errors.append(f"Invalid cinematic JPEG signature: {name}")
+        if len(cinematic_bytes) > 500_000:
+            errors.append(f"Cinematic frame exceeds 500 KB performance budget: {name}")
 
     return errors
 

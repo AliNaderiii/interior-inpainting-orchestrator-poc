@@ -2,6 +2,42 @@
 
 All notable changes to this reference implementation are recorded here. The project follows semantic versioning for its public PoC surface; a version does not imply compatibility with an undisclosed client contract.
 
+## [Unreleased] — 0.3.0 candidate
+
+### Added
+
+- Full-screen cinematic landing hero and reversible `Atmosphere → Analyze → Place → Prove` 2.5D scrollytelling sequence.
+- Two original aligned Hospitality Lounge frames for concept atmosphere and spatial-analysis transitions, plus a reproducible cinematic Open Graph preview.
+- Scroll-linked camera, scene crossfade, lock map, product-plane transition and proof HUD using local assets, CSS perspective and `requestAnimationFrame` scheduling.
+- Static no-JavaScript and reduced-motion chapter flows, reduced-transparency solids, increased-contrast styling and keyboard-safe mobile-menu dismissal.
+- Five-stage Spatial Design Studio: `Brief → Scene Locks → Hero Placement → Variant Review → Handoff`.
+- Original **Luminous Glass** control-layer design system with solid fallback, reduced transparency, reduced motion and increased contrast states.
+- Clean-room synthetic Hospitality Lounge and Contour 01 hero-carpet assets generated from a repository script.
+- Browser-local four-corner perspective placement, bounded local product upload, contact shadow, foreground occlusion order and keyboard-accessible coordinate controls.
+- Controlled three-direction review set, selected-output PNG, contact sheet and project-local JSON proof manifest exports.
+- Provisional `SpatialDesignBrief` compiler at `POST /poc/v3/briefs/compile`.
+- Deterministic transform-only placement preview at `POST /poc/v3/placements/preview`.
+- Placement geometry validation, alpha compositing, proof headers and exact authoritative restoration outside the destination plane.
+- Exported candidate OpenAPI document at `docs/openapi-v0.3.0.json` plus `docs/API_V3.md`.
+
+### Preserved
+
+- All v1 and v2 routes and behavior.
+- Exact protected-pixel restoration invariant.
+- No-cost deterministic default provider and optional BFL adapter.
+- Browser showcase no-network runtime boundary.
+- Prior Visual Restyle Studio as a focused mask-authoring proof.
+
+### Boundaries
+
+- Cinematic lounge frames are illustrative art-direction assets, not client work, live-model output or deterministic evidence.
+- The cinematic landing uses no autoplay video, WebGL dependency, third-party runtime, analytics or browser network call.
+- The Spatial Studio browser renders are deterministic reference evidence, not AI model output.
+- Generative Concept and Catalog-faithful Placement are separate modes and claims.
+- “Catalog-faithful” means immutable source raster plus allowed geometric compositing in this PoC; it is not photometric, manufacturing or catalog certification.
+- Automatic depth, segmentation, provider quality, client contract compatibility, production queues and durable provenance remain open gates.
+- No release, tag or deployment may be created while Git metadata and hosted release gates are unavailable.
+
 ## [0.2.0] — 2026-08-23
 
 ### Added

@@ -1,7 +1,7 @@
 {
-  "name": "Interior Inpainting Orchestrator — Reference PoC",
-  "short_name": "Inpaint PoC",
-  "description": "Controlled image inpainting orchestration with verifiable protected-pixel boundaries.",
+  "name": "Spatial Design Orchestrator — Reference PoC",
+  "short_name": "Spatial PoC",
+  "description": "Structured spatial briefs, controlled placement, variants and verifiable protected-pixel boundaries.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#07100f",

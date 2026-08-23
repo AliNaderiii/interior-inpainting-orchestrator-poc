@@ -108,6 +108,110 @@ def test_site_enforces_a_no_network_runtime_boundary() -> None:
     assert "MAX_PIXELS" in studio_javascript
     assert 'new Set(["image/png", "image/jpeg", "image/webp"])' in studio_javascript
 
+    spatial_javascript = (SITE / "spatial.js").read_text(encoding="utf-8")
+    assert "MAX_PRODUCT_BYTES" in spatial_javascript
+    assert "MAX_PRODUCT_PIXELS" in spatial_javascript
+    assert "URL.revokeObjectURL" in spatial_javascript
+    assert "restoreProtectedPixels" in spatial_javascript
+
+
+def test_spatial_studio_workflow_and_luminous_glass_fallbacks() -> None:
+    html = (SITE / "spatial.html").read_text(encoding="utf-8")
+    css = (SITE / "spatial.css").read_text(encoding="utf-8")
+    javascript = (SITE / "spatial.js").read_text(encoding="utf-8")
+
+    for marker in (
+        "Catalog-faithful placement",
+        "Generative concept",
+        "Scene locks",
+        "Hero placement",
+        "Variant review",
+        "Proof manifest",
+        "No provider call · no upload transmission",
+        "does not claim live model quality",
+    ):
+        assert marker in html
+
+    for fallback in (
+        "@supports not ((backdrop-filter:",
+        "prefers-reduced-transparency",
+        "prefers-reduced-motion",
+        "prefers-contrast: more",
+        'html[data-transparency="reduced"]',
+    ):
+        assert fallback in css
+    assert "transition: backdrop-filter" not in css
+    assert "transition: blur" not in css
+    assert "window.crypto.subtle.digest" in javascript
+    assert "provider_called: false" in javascript
+    assert "protected_pixel_drift" in javascript
+
+    expected_sizes = {
+        "spatial-lounge-source.png": (1200, 800),
+        "spatial-lounge-occlusion.png": (1200, 800),
+        "spatial-hero-carpet.png": (720, 440),
+        "spatial-product-card.png": (1400, 900),
+    }
+    for name, expected in expected_sizes.items():
+        with Image.open(SITE / "assets" / name) as image:
+            assert image.size == expected
+
+    for name in ("spatial-lounge-source.png", "spatial-hero-carpet.png"):
+        assert (
+            sha256((SITE / "assets" / name).read_bytes()).digest()
+            == sha256((ROOT / "docs" / "assets" / name).read_bytes()).digest()
+        )
+
+
+def test_cinematic_showcase_is_scroll_driven_local_and_accessible() -> None:
+    html = (SITE / "index.html").read_text(encoding="utf-8")
+    css = (SITE / "cinematic.css").read_text(encoding="utf-8")
+    javascript = (SITE / "cinematic.js").read_text(encoding="utf-8")
+    app_javascript = (SITE / "app.js").read_text(encoding="utf-8")
+
+    for marker in (
+        "SCROLL-DIRECTED SPATIAL STORY",
+        "One scene. Four decisions.",
+        "01 / ATMOSPHERE",
+        "02 / ANALYZE",
+        "03 / PLACE",
+        "04 / PROVE",
+        "Illustrative concept frame",
+        "not deterministic or live-model evidence",
+        "Local frames · no runtime provider call",
+    ):
+        assert marker in html
+
+    assert 'src="assets/cinematic-lounge-concept.jpg"' in html
+    assert 'src="assets/cinematic-lounge-analysis.jpg"' in html
+    assert 'src="assets/spatial-hero-carpet.png"' in html
+    assert "autoplay" not in html
+    assert "requestAnimationFrame" in javascript
+    assert 'matchMedia("(prefers-reduced-motion: reduce)")' in javascript
+    assert "passive: true" in javascript
+    assert "fetch(" not in javascript
+    assert "WebSocket" not in javascript
+    assert 'event.key === "Escape"' in app_javascript
+    assert "toggle.focus()" in app_javascript
+
+    for fallback in (
+        "prefers-reduced-motion: reduce",
+        "prefers-reduced-transparency: reduce",
+        "prefers-contrast: more",
+        "@supports not ((backdrop-filter:",
+    ):
+        assert fallback in css
+    assert "infinite" not in css
+    assert "transition: backdrop-filter" not in css
+    assert "transition: blur" not in css
+
+    for name in ("cinematic-lounge-concept.jpg", "cinematic-lounge-analysis.jpg"):
+        path = SITE / "assets" / name
+        assert path.stat().st_size < 500_000
+        with Image.open(path) as image:
+            assert image.size == (1376, 768)
+            assert image.mode == "RGB"
+
 
 def test_showcase_assets_and_honest_scope_are_preserved() -> None:
     html = (SITE / "index.html").read_text(encoding="utf-8")
@@ -116,7 +220,8 @@ def test_showcase_assets_and_honest_scope_are_preserved() -> None:
     assert "approved credentials, region, budget, and acceptance criteria" in html
     assert "Client-owned OpenAPI and JSON Schemas" in html
     assert "POST /poc/v2/jobs" in html
-    assert 'href="studio.html"' in html
+    assert 'href="spatial.html"' in html
+    assert "Enter Spatial Studio" in html
 
     asset_names = (
         "before-synthetic.png",
@@ -146,6 +251,7 @@ def test_pages_manifest_and_workflow_are_hardened() -> None:
     assert (SITE / ".nojekyll").exists()
     social_preview = SITE / "assets" / "social-preview.png"
     assert social_preview.is_file()
+    assert social_preview.stat().st_size < 500_000
     with Image.open(social_preview) as image:
         assert image.size == (1200, 630)
 

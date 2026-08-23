@@ -40,7 +40,6 @@ jobs:
         if: matrix.python-version == '3.11'
         run: |
           python scripts/validate_static_site.py
-          node --check site/app.js
-          node --check site/studio.js
+          for file in site/*.js; do node --check "$file"; done
       - name: Tests
         run: pytest -q -m 'not live_provider'

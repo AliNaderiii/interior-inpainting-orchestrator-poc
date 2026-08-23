@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-transparency="regular">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browser-local Spatial Design Studio reference workflow for structured briefs, scene locks, deterministic product placement, controlled variants and verifiable handoff evidence.">
+  <meta name="theme-color" content="#081113">
+  <meta name="color-scheme" content="dark light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; manifest-src 'self'; media-src 'none'; worker-src 'none'">
+  <title>Spatial Design Studio — Reference PoC</title>
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="spatial.css">
+  <script src="spatial.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to workspace</a>
+  <div class="environment" aria-hidden="true">
+    <span class="environment-orb environment-orb-a"></span>
+    <span class="environment-orb environment-orb-b"></span>
+    <span class="environment-grid"></span>
+  </div>
+
+  <header class="topbar glass-surface">
+    <a class="brand" href="index.html" aria-label="Interior Inpainting Orchestrator showcase">
+      <span class="brand-mark" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+      <span class="brand-copy">
+        <strong>Spatial Studio</strong>
+        <small>Reference workspace</small>
+      </span>
+    </a>
+
+    <div class="project-identity" aria-label="Current project">
+      <span class="project-kicker">PROJECT / SD-003</span>
+      <strong>Harbor House Lounge</strong>
+      <span class="save-state" id="save-state"><i aria-hidden="true"></i> Local draft</span>
+    </div>
+
+    <nav class="top-actions" aria-label="Workspace utilities">
+      <span class="security-chip" title="This static demo does not send files or call providers">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 2.8 8.2 7 10 4.2-1.8 7-5.5 7-10V6l-7-3Zm0 3.2 4 1.7V11c0 2.9-1.5 5.4-4 6.8C9.5 16.4 8 13.9 8 11V7.9l4-1.7Z"/></svg>
+        Browser-local
+      </span>
+      <button class="icon-button" id="transparency-toggle" type="button" aria-pressed="false" title="Reduce transparency">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5Zm3 2v4h4V7H7Zm6 0v4h4V7h-4Zm-6 6v4h4v-4H7Zm6 0v4h4v-4h-4Z"/></svg>
+        <span class="sr-only">Reduce transparency</span>
+      </button>
+      <button class="icon-button" id="theme-toggle" type="button" aria-pressed="false" title="Use light appearance">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.5A7 7 0 0 1 12 3Zm0 4v10a5 5 0 0 1 0-10Z"/></svg>
+        <span class="sr-only">Toggle color theme</span>
+      </button>
+      <a class="quiet-link" href="index.html">Showcase</a>
+    </nav>
+  </header>
+
+  <main id="workspace" class="workspace" tabindex="-1">
+    <div class="studio-shell">
+      <aside class="workflow-rail glass-surface" aria-label="Spatial workflow">
+        <div class="rail-heading">
+          <span class="eyebrow">ART DIRECTION FLOW</span>
+          <h1>Hospitality lounge</h1>
+          <p>Brief to placement to handoff.</p>
+        </div>
+
+        <ol class="workflow-steps" id="workflow-steps">
+          <li>
+            <button type="button" class="step-button is-active" data-step="1" aria-current="step">
+              <span class="step-index">01</span>
+              <span><strong>Spatial brief</strong><small>Intent + mode</small></span>
+              <i class="step-state" aria-hidden="true"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="step-button" data-step="2">
+              <span class="step-index">02</span>
+              <span><strong>Scene locks</strong><small>Protect geometry</small></span>
+              <i class="step-state" aria-hidden="true"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="step-button" data-step="3">
+              <span class="step-index">03</span>
+              <span><strong>Hero placement</strong><small>Perspective plane</small></span>
+              <i class="step-state" aria-hidden="true"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="step-button" data-step="4">
+              <span class="step-index">04</span>
+              <span><strong>Variant review</strong><small>Controlled set</small></span>
+              <i class="step-state" aria-hidden="true"></i>
+            </button>
+          </li>
+          <li>
+            <button type="button" class="step-button" data-step="5">
+              <span class="step-index">05</span>
+              <span><strong>Handoff</strong><small>Proof + manifest</small></span>
+              <i class="step-state" aria-hidden="true"></i>
+            </button>
+          </li>
+        </ol>
+
+        <div class="mode-status">
+          <span class="mode-glyph" aria-hidden="true">P</span>
+          <span><small>ACTIVE PATH</small><strong id="rail-mode">Catalog-faithful placement</strong></span>
+        </div>
+
+        <div class="rail-footnote">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span><strong>Reference mode</strong><small>No provider call · no upload transmission</small></span>
+        </div>
+      </aside>
+
+      <section class="canvas-column" aria-label="Design canvas">
+        <div class="canvas-heading">
+          <div>
+            <span class="eyebrow" id="canvas-kicker">STEP 01 / BRIEF</span>
+            <h2 id="canvas-title">Frame the spatial decision</h2>
+          </div>
+          <div class="canvas-meta" aria-label="Canvas properties">
+            <span><small>SCENE</small><strong>1200 × 800</strong></span>
+            <span><small>SCALE</small><strong id="scale-label">Fit</strong></span>
+            <span class="online-state"><small>ENGINE</small><strong>Deterministic</strong></span>
+          </div>
+        </div>
+
+        <div class="canvas-frame" id="canvas-frame">
+          <div class="canvas-stage" id="canvas-stage">
+            <canvas id="spatial-canvas" width="1200" height="800" tabindex="0" aria-describedby="canvas-help">
+              Your browser does not support the canvas element required for the placement preview.
+            </canvas>
+            <div class="canvas-corner-label label-architecture" id="architecture-label">ARCHITECTURE · LOCKED</div>
+            <div class="canvas-corner-label label-product" id="product-label">HERO PLANE · EDITABLE</div>
+            <div class="canvas-loading" id="canvas-loading" role="status">Preparing local scene…</div>
+          </div>
+          <p class="sr-only" id="canvas-help">In placement step, press Tab to focus the canvas, use bracket keys to choose a corner, and arrow keys to move that corner. Coordinate inputs are also available in the inspector.</p>
+        </div>
+
+        <div class="canvas-toolbar glass-surface" role="toolbar" aria-label="Canvas controls">
+          <button class="tool-button is-active" id="tool-select" type="button" aria-pressed="true" title="Select placement corner">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 3 14 8-6 2-3 6L5 3Z"/></svg>
+            <span>Select</span>
+          </button>
+          <button class="tool-button" id="toggle-guides" type="button" aria-pressed="true" title="Show scene guides">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v14H4V5Zm2 2v10h12V7H6Zm5 1h2v3h3v2h-3v3h-2v-3H8v-2h3V8Z"/></svg>
+            <span>Guides</span>
+          </button>
+          <button class="tool-button" id="compare-original" type="button" aria-pressed="false" title="Press and hold to compare source">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4c5 0 9 5.2 9 8s-4 8-9 8-9-5.2-9-8 4-8 9-8Zm0 3c-3.2 0-5.9 3.3-6 5 .1 1.7 2.8 5 6 5s5.9-3.3 6-5c-.1-1.7-2.8-5-6-5Zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"/></svg>
+            <span>Source</span>
+          </button>
+          <span class="tool-divider" aria-hidden="true"></span>
+          <button class="tool-button" id="reset-view" type="button" title="Reset placement and view">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 5a7 7 0 1 1-6.3 4H3l3.5-4L10 9H7.8A5 5 0 1 0 12 7V5Z"/></svg>
+            <span>Reset</span>
+          </button>
+          <span class="toolbar-proof"><i aria-hidden="true"></i><span id="toolbar-proof">Protected region stable</span></span>
+        </div>
+
+        <section class="variant-tray" id="variant-tray" aria-labelledby="variant-title">
+          <div class="tray-heading">
+            <div><span class="eyebrow">CONTROLLED SET</span><h3 id="variant-title">Review directions</h3></div>
+            <span id="variant-status">Run in step 04</span>
+          </div>
+          <div class="variant-grid">
+            <button class="variant-card is-selected" type="button" data-variant="0" aria-pressed="true">
+              <canvas width="360" height="240" aria-label="Gallery Calm variant preview"></canvas>
+              <span><strong>01 · Gallery calm</strong><small>Quiet mineral envelope</small></span>
+              <i>Selected</i>
+            </button>
+            <button class="variant-card" type="button" data-variant="1" aria-pressed="false">
+              <canvas width="360" height="240" aria-label="Ember Social variant preview"></canvas>
+              <span><strong>02 · Ember social</strong><small>Warm editorial wall</small></span>
+              <i>Select</i>
+            </button>
+            <button class="variant-card" type="button" data-variant="2" aria-pressed="false">
+              <canvas width="360" height="240" aria-label="Night Gallery variant preview"></canvas>
+              <span><strong>03 · Night gallery</strong><small>Deep hosting contrast</small></span>
+              <i>Select</i>
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <aside class="inspector glass-surface" aria-label="Contextual inspector">
+        <div class="inspector-head">
+          <div><span class="eyebrow">INSPECTOR</span><h2 id="inspector-title">Spatial brief</h2></div>
+          <span class="phase-chip" id="phase-chip">DRAFT</span>
+        </div>
+
+        <div class="inspector-scroll">
+          <section class="inspector-panel" data-panel="1">
+            <fieldset class="mode-fieldset">
+              <legend>Intervention mode</legend>
+              <p class="field-help">The two paths use different claims and proof.</p>
+              <label class="mode-choice">
+                <input type="radio" name="intervention-mode" value="placement" checked>
+                <span class="choice-icon" aria-hidden="true">P</span>
+                <span><strong>Catalog-faithful placement</strong><small>Keep source pixels immutable; transform geometry only.</small></span>
+                <i aria-hidden="true"></i>
+              </label>
+              <label class="mode-choice">
+                <input type="radio" name="intervention-mode" value="concept">
+                <span class="choice-icon concept" aria-hidden="true">G</span>
+                <span><strong>Generative concept</strong><small>Explore approved surfaces; never claim product fidelity.</small></span>
+                <i aria-hidden="true"></i>
+              </label>
+            </fieldset>
+
+            <div class="field-group">
+              <label for="project-context">Project context</label>
+              <select id="project-context">
+                <option value="hospitality-lounge">Hospitality · members lounge</option>
+                <option value="boutique-hotel">Hospitality · boutique hotel</option>
+                <option value="retail-gallery">Retail · collectible gallery</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label for="design-objective">Spatial objective</label>
+              <textarea id="design-objective" maxlength="240" rows="4">Create a composed evening lounge where the hero carpet anchors conversation without changing the architecture or the specified product identity.</textarea>
+              <span class="character-count"><span id="objective-count">153</span>/240</span>
+            </div>
+
+            <div class="field-group">
+              <span class="field-label">Atmosphere</span>
+              <div class="swatch-options" role="radiogroup" aria-label="Atmosphere palette">
+                <label><input type="radio" name="atmosphere" value="mineral" checked><span class="swatch mineral"></span><small>Mineral</small></label>
+                <label><input type="radio" name="atmosphere" value="ember"><span class="swatch ember"></span><small>Ember</small></label>
+                <label><input type="radio" name="atmosphere" value="nocturne"><span class="swatch nocturne"></span><small>Nocturne</small></label>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <span class="field-label">Material cues</span>
+              <div class="chip-checks">
+                <label><input type="checkbox" value="limewash" checked><span>Limewash</span></label>
+                <label><input type="checkbox" value="bronze" checked><span>Bronze</span></label>
+                <label><input type="checkbox" value="smoked-oak"><span>Smoked oak</span></label>
+                <label><input type="checkbox" value="boucle"><span>Bouclé</span></label>
+              </div>
+            </div>
+
+            <div class="intent-summary">
+              <span class="summary-icon" aria-hidden="true">◆</span>
+              <div><strong>Decision boundary</strong><p id="mode-boundary-copy">Product pixels remain immutable. Position, perspective, contact shadow and occlusion order may change.</p></div>
+            </div>
+
+            <button class="primary-action" type="button" data-next="2"><span>Lock brief & map scene</span><span aria-hidden="true">→</span></button>
+          </section>
+
+          <section class="inspector-panel" data-panel="2" hidden>
+            <div class="section-intro">
+              <span class="section-number">02</span>
+              <div><strong>Scene hierarchy</strong><p>Declare what can change before any rendering path begins.</p></div>
+            </div>
+
+            <div class="lock-list">
+              <label class="lock-row"><input id="lock-architecture" type="checkbox" checked><span class="lock-symbol">A</span><span><strong>Architecture shell</strong><small>Walls, reveals, perspective</small></span><i>HARD LOCK</i></label>
+              <label class="lock-row"><input id="lock-openings" type="checkbox" checked><span class="lock-symbol">O</span><span><strong>Openings + daylight</strong><small>Window and frame geometry</small></span><i>HARD LOCK</i></label>
+              <label class="lock-row"><input id="lock-furniture" type="checkbox" checked><span class="lock-symbol">F</span><span><strong>Existing furniture</strong><small>Sofa and table identity</small></span><i>OCCLUDE</i></label>
+              <label class="lock-row"><input id="lock-floor" type="checkbox" checked><span class="lock-symbol editable">P</span><span><strong>Hero floor plane</strong><small>Placement footprint only</small></span><i>EDITABLE</i></label>
+            </div>
+
+            <div class="field-group compact">
+              <label class="toggle-row" for="show-regions"><span><strong>Show region map</strong><small>Overlay the authority model on canvas</small></span><input id="show-regions" type="checkbox" checked><i aria-hidden="true"></i></label>
+            </div>
+
+            <div class="scene-schema" aria-label="Compiled scene plan">
+              <div><span>scene.type</span><strong>hospitality_lounge</strong></div>
+              <div><span>architecture.authority</span><strong>source_exact</strong></div>
+              <div><span>hero.mode</span><strong id="scene-mode">asset_transform_only</strong></div>
+              <div><span>occlusion.order</span><strong>restore_foreground</strong></div>
+            </div>
+
+            <div class="proof-note safe"><i aria-hidden="true">✓</i><span><strong>Lock plan is explicit</strong><small>Protected regions are restored from the source raster after compositing.</small></span></div>
+            <button class="primary-action" type="button" data-next="3"><span>Approve locks & place hero</span><span aria-hidden="true">→</span></button>
+            <button class="text-action" type="button" data-back="1">← Return to brief</button>
+          </section>
+
+          <section class="inspector-panel" data-panel="3" hidden>
+            <div class="asset-preview">
+              <img src="assets/spatial-product-card.png" width="1400" height="900" alt="Contour 01 synthetic hero carpet catalog card">
+              <span class="asset-badge">BUILT-IN · CLEAN-ROOM</span>
+            </div>
+            <div class="asset-meta">
+              <div><small>ASSET</small><strong id="asset-name">Contour 01</strong></div>
+              <div><small>SOURCE</small><strong id="asset-size">720 × 440 PNG</strong></div>
+            </div>
+            <div class="asset-integrity"><span aria-hidden="true">#</span><div><small>SHA-256</small><code id="asset-hash">e87dc919e59b…</code></div><i>VERIFIED</i></div>
+
+            <div class="upload-control">
+              <label class="secondary-action" for="product-upload">Use local product PNG</label>
+              <input id="product-upload" type="file" accept="image/png,image/webp">
+              <p>PNG/WebP · max 8 MB · max 4 MP · stays in this tab</p>
+            </div>
+
+            <div class="field-group compact">
+              <div class="range-head"><label for="shadow-strength">Contact shadow</label><output id="shadow-output" for="shadow-strength">18%</output></div>
+              <input id="shadow-strength" type="range" min="0" max="35" value="18">
+            </div>
+
+            <fieldset class="corner-controls">
+              <legend>Floor plane coordinates</legend>
+              <p class="field-help">Normalized values provide keyboard-accessible control for the four canvas handles.</p>
+              <div class="corner-table">
+                <span></span><span>X</span><span>Y</span>
+                <label for="corner-0-x">TL</label><input id="corner-0-x" data-corner="0" data-axis="x" type="number" min="0" max="1" step="0.01"><input aria-label="Top left Y" data-corner="0" data-axis="y" type="number" min="0" max="1" step="0.01">
+                <label for="corner-1-x">TR</label><input id="corner-1-x" data-corner="1" data-axis="x" type="number" min="0" max="1" step="0.01"><input aria-label="Top right Y" data-corner="1" data-axis="y" type="number" min="0" max="1" step="0.01">
+                <label for="corner-2-x">BR</label><input id="corner-2-x" data-corner="2" data-axis="x" type="number" min="0" max="1" step="0.01"><input aria-label="Bottom right Y" data-corner="2" data-axis="y" type="number" min="0" max="1" step="0.01">
+                <label for="corner-3-x">BL</label><input id="corner-3-x" data-corner="3" data-axis="x" type="number" min="0" max="1" step="0.01"><input aria-label="Bottom left Y" data-corner="3" data-axis="y" type="number" min="0" max="1" step="0.01">
+              </div>
+            </fieldset>
+
+            <div class="proof-note"><i aria-hidden="true">P</i><span><strong>Transform-only path</strong><small>The product raster is not recolored, regenerated or retouched.</small></span></div>
+            <button class="primary-action" type="button" data-next="4"><span>Approve placement</span><span aria-hidden="true">→</span></button>
+            <button class="text-action" type="button" data-back="2">← Return to scene locks</button>
+          </section>
+
+          <section class="inspector-panel" data-panel="4" hidden>
+            <div class="section-intro">
+              <span class="section-number">04</span>
+              <div><strong>Controlled variations</strong><p>Only the approved wall atmosphere changes. Product and architecture remain locked.</p></div>
+            </div>
+
+            <div class="variant-specs">
+              <article><span class="tone-dot mineral"></span><div><strong>Gallery calm</strong><small>Mineral plaster · 2700 K</small></div><i>BASELINE</i></article>
+              <article><span class="tone-dot ember"></span><div><strong>Ember social</strong><small>Clay wash · 2400 K</small></div><i>VARIANT</i></article>
+              <article><span class="tone-dot nocturne"></span><div><strong>Night gallery</strong><small>Deep teal · 2200 K</small></div><i>VARIANT</i></article>
+            </div>
+
+            <div class="change-matrix">
+              <div><span>Wall color</span><strong class="change-yes">Changes</strong></div>
+              <div><span>Hero asset pixels</span><strong class="change-no">Locked</strong></div>
+              <div><span>Placement geometry</span><strong class="change-no">Locked</strong></div>
+              <div><span>Window / furniture</span><strong class="change-no">Locked</strong></div>
+            </div>
+
+            <button class="primary-action" id="run-variants" type="button"><span>Run local variant set</span><span aria-hidden="true">◆</span></button>
+            <div class="job-progress" id="job-progress" hidden>
+              <div><span id="job-label">Compiling brief</span><strong id="job-percent">0%</strong></div>
+              <progress id="job-meter" max="100" value="0">0%</progress>
+              <p>Deterministic browser evidence · not AI output</p>
+            </div>
+            <button class="secondary-action full" id="continue-handoff" type="button" disabled>Open review handoff →</button>
+            <button class="text-action" type="button" data-back="3">← Refine placement</button>
+          </section>
+
+          <section class="inspector-panel" data-panel="5" hidden>
+            <div class="handoff-hero">
+              <span class="handoff-check" aria-hidden="true">✓</span>
+              <span class="eyebrow">REVIEW READY</span>
+              <h3 id="approved-direction">Gallery calm</h3>
+              <p>Local evidence package compiled. This is a reference manifest, not an external provenance certification.</p>
+            </div>
+
+            <div class="metric-grid">
+              <article><small>PROTECTED DRIFT</small><strong id="protected-drift">0 px</strong><span>exact source match</span></article>
+              <article><small>ASSET MUTATIONS</small><strong>0</strong><span>transform only</span></article>
+              <article><small>BRIEF ID</small><strong id="brief-short-hash">pending</strong><span>canonical SHA-256</span></article>
+              <article><small>RENDER PATH</small><strong>local-v1</strong><span>deterministic</span></article>
+            </div>
+
+            <div class="proof-stack">
+              <div><span class="proof-icon success">✓</span><span><strong>Scene lock proof</strong><small>Pixels outside approved polygons restored exactly.</small></span><i>PASS</i></div>
+              <div><span class="proof-icon success">#</span><span><strong>Asset identity</strong><small id="proof-asset-hash">e87dc919e59b…</small></span><i>PASS</i></div>
+              <div><span class="proof-icon warning">!</span><span><strong>Model quality</strong><small>No live generative provider evaluated in this demo.</small></span><i>BOUNDARY</i></div>
+            </div>
+
+            <div class="export-grid">
+              <button type="button" id="download-selected"><span aria-hidden="true">↓</span><span><strong>Selected PNG</strong><small>1200 × 800</small></span></button>
+              <button type="button" id="download-contact-sheet"><span aria-hidden="true">▦</span><span><strong>Contact sheet</strong><small>3 directions</small></span></button>
+              <button type="button" id="download-manifest"><span aria-hidden="true">{ }</span><span><strong>Proof manifest</strong><small>JSON</small></span></button>
+            </div>
+
+            <button class="secondary-action full" id="copy-summary" type="button">Copy review summary</button>
+            <button class="text-action" type="button" data-back="4">← Return to variant review</button>
+          </section>
+        </div>
+
+        <footer class="inspector-footer">
+          <span><i aria-hidden="true"></i> Local session</span>
+          <span id="footer-coordinates">x 0.21 · y 0.64</span>
+        </footer>
+      </aside>
+    </div>
+
+    <section class="boundary-banner" aria-label="Reference implementation boundary">
+      <div><span class="boundary-mark" aria-hidden="true">B</span><span><strong>Reference boundary</strong><small>This browser demo proves workflow, geometry, controlled variants and exact protected-pixel restoration. It does not claim live model quality, automated depth, client compatibility or production readiness.</small></span></div>
+      <a href="index.html#boundary-lab">Inspect prior boundary proof →</a>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

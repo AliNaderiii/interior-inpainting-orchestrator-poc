@@ -47,6 +47,12 @@ def decode_image_rgb(data: bytes, limits: ImageLimits) -> np.ndarray:
     return np.asarray(image, dtype=np.uint8).copy()
 
 
+def decode_image_rgba(data: bytes, limits: ImageLimits) -> np.ndarray:
+    """Decode a bounded product raster while preserving or synthesizing alpha."""
+    image = _open_single_frame(data, limits, mask=False).convert("RGBA")
+    return np.asarray(image, dtype=np.uint8).copy()
+
+
 def decode_mask_gray(
     data: bytes, expected_size: tuple[int, int], limits: ImageLimits
 ) -> np.ndarray:

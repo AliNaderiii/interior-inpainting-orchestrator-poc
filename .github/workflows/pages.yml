@@ -26,8 +26,7 @@ jobs:
       - name: Validate static showcase security and integrity
         run: |
           python scripts/validate_static_site.py
-          node --check site/app.js
-          node --check site/studio.js
+          for file in site/*.js; do node --check "$file"; done
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
