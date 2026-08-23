@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Literal
 
 import numpy as np
@@ -20,6 +21,16 @@ class HealthResponse(BaseModel):
 
     status: Literal["ok"] = "ok"
     provider: str
+
+
+class ReadyResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    status: Literal["ready"] = "ready"
+    provider: str
+    active_jobs: int = Field(ge=0)
+    max_records: int = Field(gt=0)
+    max_concurrency: int = Field(gt=0)
 
 
 @dataclass(frozen=True, slots=True)
@@ -54,3 +65,45 @@ class InpaintMetadata(BaseModel):
     mask_coverage: float = Field(ge=0, le=1)
     input_sha256: str
     output_sha256: str
+
+
+JobStatus = Literal["queued", "running", "succeeded", "failed", "expired"]
+
+
+class JobLinks(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    status: str
+    result: str
+
+
+class JobAccepted(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    job_id: str
+    status: JobStatus
+    reused: bool
+    compiled_prompt: str
+    intent_sha256: str | None = None
+    links: JobLinks
+
+
+class JobFailure(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    code: str
+    message: str
+
+
+class JobView(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    job_id: str
+    status: JobStatus
+    progress: int = Field(ge=0, le=100)
+    created_at: datetime
+    updated_at: datetime
+    expires_at: datetime
+    metadata: InpaintMetadata | None = None
+    failure: JobFailure | None = None
+    links: JobLinks

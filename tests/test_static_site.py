@@ -78,23 +78,31 @@ def test_static_pages_have_resolvable_local_references() -> None:
 
 
 def test_site_enforces_a_no_network_runtime_boundary() -> None:
-    html = (SITE / "index.html").read_text(encoding="utf-8")
-    parser = ReferenceParser()
-    parser.feed(html)
-    assert "connect-src 'none'" in html
-    assert "object-src 'none'" in html
-    assert "frame-ancestors 'none'" in html
-    assert "base-uri 'none'" in html
-    assert parser.inline_scripts == 0
-    assert parser.inline_styles == 0
-    assert not parser.event_handlers
+    for html_path in SITE.glob("*.html"):
+        html = html_path.read_text(encoding="utf-8")
+        parser = ReferenceParser()
+        parser.feed(html)
+        assert "connect-src 'none'" in html
+        assert "object-src 'none'" in html
+        assert "frame-ancestors 'none'" in html
+        assert "base-uri 'none'" in html
+        assert parser.inline_scripts == 0
+        assert parser.inline_styles == 0
+        assert not parser.event_handlers
 
-    javascript = (SITE / "app.js").read_text(encoding="utf-8")
     forbidden_network_apis = ("fetch(", "XMLHttpRequest", "WebSocket", "sendBeacon(")
-    assert not any(api in javascript for api in forbidden_network_apis)
-    assert "MAX_BROWSER_BYTES" in javascript
-    assert "MAX_BROWSER_PIXELS" in javascript
-    assert 'new Set(["image/png", "image/jpeg", "image/webp"])' in javascript
+    for javascript_path in SITE.glob("*.js"):
+        javascript = javascript_path.read_text(encoding="utf-8")
+        assert not any(api in javascript for api in forbidden_network_apis)
+
+    app_javascript = (SITE / "app.js").read_text(encoding="utf-8")
+    studio_javascript = (SITE / "studio.js").read_text(encoding="utf-8")
+    assert "MAX_BROWSER_BYTES" in app_javascript
+    assert "MAX_BROWSER_PIXELS" in app_javascript
+    assert 'new Set(["image/png", "image/jpeg", "image/webp"])' in app_javascript
+    assert "MAX_BYTES" in studio_javascript
+    assert "MAX_PIXELS" in studio_javascript
+    assert 'new Set(["image/png", "image/jpeg", "image/webp"])' in studio_javascript
 
 
 def test_showcase_assets_and_honest_scope_are_preserved() -> None:

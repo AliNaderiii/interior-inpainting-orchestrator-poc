@@ -1,0 +1,67 @@
+PHASE 02 VALIDATION EVIDENCE
+Date: 2026-08-23
+Repository: interior-inpainting-orchestrator-poc
+
+== Host runtime ==
+Python 3.13.14
+v20.20.2
+
+== Formatting, lint and typing ==
+34 files already formatted
+All checks passed!
+Success: no issues found in 13 source files
+
+== CPython 3.13 test gate ==
+........................                                                 [100%]
+24 passed in 1.08s
+
+== Static showcase and JavaScript ==
+Static showcase validation: PASS
+site/app.js syntax: PASS
+site/studio.js syntax: PASS
+
+== Project-scoped dependency audit ==
+No known vulnerabilities found
+
+== Artifact hygiene ==
+Targeted credential-pattern matches: 1
+Reviewed test-only dummy fixtures: 1
+Actionable credential candidates: 0
+Pages artifact symlinks: 0
+
+== Static HTTP smoke on port 4174 ==
+/ 200 text/html
+/index.html 200 text/html
+/studio.html 200 text/html
+/styles.css 200 text/css
+/studio.css 200 text/css
+/studio.js 200 text/javascript
+/assets/before-synthetic.png 200 image/png
+/assets/mask-white-edit-synthetic.png 200 image/png
+/manifest.webmanifest 200 application/manifest+json
+
+== API v0.2 runtime smoke on port 8001 ==
+openapi 200 0.2.0
+live 200 ok
+ready 200 ready
+compile 200 intent-v1 64
+create 202 /poc/v2/jobs/a60b07bc-a4fb-469f-a470-0e6e25366c8b False
+terminal 200 succeeded deterministic-demo
+result 200 image/png 35130
+replay 202 True True
+
+== CPython 3.11 test gate ==
+Installed 40 packages in 17ms
+Python 3.11.16
+Installed 40 packages in 15ms
+........................                                                 [100%]
+24 passed in 1.60s
+
+== CPython 3.12 test gate ==
+Installed 40 packages in 15ms
+Python 3.12.14
+Installed 40 packages in 15ms
+........................                                                 [100%]
+24 passed in 1.58s
+
+FINAL LOCAL RESULT: PASS

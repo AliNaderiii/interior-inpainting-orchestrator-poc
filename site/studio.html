@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A browser-local visual restyle studio demonstrating structured design intent, editable masks and exact protected-pixel boundaries.">
+  <meta name="theme-color" content="#07100f">
+  <meta name="color-scheme" content="dark light">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="studio.css">
+  <title>Visual Restyle Studio — Interior Inpainting Orchestrator</title>
+</head>
+<body class="studio-body">
+  <a class="skip-link" href="#studio-workspace">Skip to studio</a>
+
+  <header class="site-header is-scrolled studio-header">
+    <div class="shell nav-shell">
+      <a class="brand" href="index.html" aria-label="Back to Interior Inpainting Orchestrator showcase">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 36 36"><path d="M7 8.5 18 3l11 5.5v19L18 33 7 27.5Z"></path><path d="m12 20 4 4 8-10"></path></svg>
+        </span>
+        <span class="brand-copy"><strong>Restyle / Studio</strong><small>CONTROLLED VISUALIZATION · LOCAL</small></span>
+      </a>
+      <div class="studio-header-status"><i aria-hidden="true"></i><span>No network · No uploads · Non-AI</span></div>
+      <a class="studio-back-link" href="index.html">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+        Technical showcase
+      </a>
+      <button class="theme-toggle icon-button" type="button" aria-label="Switch color theme" data-theme-toggle>
+        <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.5 8.5 0 1 0 20.5 15.2Z"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="studio-workspace" class="studio-main">
+    <div class="shell studio-intro">
+      <div>
+        <p class="kicker">PRODUCT VERTICAL SLICE / BROWSER-LOCAL</p>
+        <h1>Turn design intent into a controlled edit.</h1>
+        <p>Choose a direction, authorize pixels with a mask, and inspect the result. The local renderer proves workflow and boundary behavior—not generative quality.</p>
+      </div>
+      <div class="studio-proof-pill"><span>Boundary invariant</span><strong>original pixels survive outside mask</strong></div>
+    </div>
+
+    <div class="shell studio-layout">
+      <aside class="studio-rail" aria-label="Studio progress">
+        <ol class="step-list">
+          <li class="is-active" data-step-item="1">
+            <button type="button" data-step-target="1" aria-current="step"><span>01</span><span><strong>Design intent</strong><small>Style, palette, materials</small></span></button>
+          </li>
+          <li data-step-item="2">
+            <button type="button" data-step-target="2"><span>02</span><span><strong>Authorized zone</strong><small>Draw or import mask</small></span></button>
+          </li>
+          <li data-step-item="3">
+            <button type="button" data-step-target="3"><span>03</span><span><strong>Run & inspect</strong><small>Proof, payload, output</small></span></button>
+          </li>
+        </ol>
+        <div class="rail-contract">
+          <span>API-shaped workflow</span>
+          <code>POST /poc/v2/jobs</code>
+          <p>The deployed page stays offline. The repository API implements the corresponding bounded job lifecycle.</p>
+        </div>
+      </aside>
+
+      <section class="studio-surface" aria-live="polite">
+        <div class="studio-step" data-step-panel="1">
+          <div class="studio-panel-head">
+            <div><span>STEP 01</span><h2>Build a transparent design brief.</h2><p>Every selection is compiled into a deterministic, reviewable prompt. No hidden recommendation model is used in this browser demo.</p></div>
+            <span class="contract-chip">StyleIntent / v1</span>
+          </div>
+
+          <fieldset class="studio-fieldset">
+            <legend>Design direction</legend>
+            <div class="style-card-grid" data-style-grid>
+              <label class="style-card"><input type="radio" name="style" value="modern-calm" checked><span class="style-swatch swatch-calm"></span><span><strong>Modern calm</strong><small>Quiet contrast · soft geometry</small></span><i>01</i></label>
+              <label class="style-card"><input type="radio" name="style" value="warm-minimal"><span class="style-swatch swatch-warm"></span><span><strong>Warm minimal</strong><small>Natural warmth · low visual noise</small></span><i>02</i></label>
+              <label class="style-card"><input type="radio" name="style" value="japandi"><span class="style-swatch swatch-japandi"></span><span><strong>Japandi</strong><small>Craft · balance · restraint</small></span><i>03</i></label>
+              <label class="style-card"><input type="radio" name="style" value="scandinavian"><span class="style-swatch swatch-scandi"></span><span><strong>Scandinavian</strong><small>Light · functional · tactile</small></span><i>04</i></label>
+              <label class="style-card"><input type="radio" name="style" value="contemporary"><span class="style-swatch swatch-contemporary"></span><span><strong>Contemporary</strong><small>Refined layers · crisp details</small></span><i>05</i></label>
+              <label class="style-card"><input type="radio" name="style" value="industrial"><span class="style-swatch swatch-industrial"></span><span><strong>Industrial</strong><small>Mineral texture · dark accents</small></span><i>06</i></label>
+            </div>
+          </fieldset>
+
+          <div class="intent-grid">
+            <fieldset class="studio-fieldset compact-fieldset">
+              <legend>Room</legend>
+              <label class="select-label" for="room-type"><span>Room type</span><select id="room-type" data-room><option value="living-room">Living room</option><option value="bedroom">Bedroom</option><option value="dining-room">Dining room</option><option value="home-office">Home office</option><option value="kitchen">Kitchen</option></select></label>
+            </fieldset>
+
+            <fieldset class="studio-fieldset compact-fieldset">
+              <legend>Palette</legend>
+              <div class="palette-row" data-palette-row>
+                <button class="palette-dot palette-sand is-selected" type="button" data-color="#D9C7A3" aria-label="Select warm sand" aria-pressed="true"></button>
+                <button class="palette-dot palette-ivory is-selected" type="button" data-color="#F3EFE6" aria-label="Select soft ivory" aria-pressed="true"></button>
+                <button class="palette-dot palette-sage" type="button" data-color="#879B83" aria-label="Select muted sage" aria-pressed="false"></button>
+                <button class="palette-dot palette-clay" type="button" data-color="#A97155" aria-label="Select clay" aria-pressed="false"></button>
+                <button class="palette-dot palette-charcoal" type="button" data-color="#343A38" aria-label="Select charcoal" aria-pressed="false"></button>
+              </div>
+            </fieldset>
+          </div>
+
+          <fieldset class="studio-fieldset compact-fieldset">
+            <legend>Material cues</legend>
+            <div class="choice-chips" data-materials>
+              <button type="button" data-value="wood" aria-pressed="true" class="is-selected">Wood</button>
+              <button type="button" data-value="plaster" aria-pressed="true" class="is-selected">Plaster</button>
+              <button type="button" data-value="stone" aria-pressed="false">Stone</button>
+              <button type="button" data-value="textile" aria-pressed="false">Textile</button>
+              <button type="button" data-value="metal" aria-pressed="false">Metal</button>
+              <button type="button" data-value="concrete" aria-pressed="false">Concrete</button>
+            </div>
+            <p class="field-note" data-material-message>Select up to four controlled material cues.</p>
+          </fieldset>
+
+          <fieldset class="studio-fieldset compact-fieldset">
+            <legend>Semantic preservation notes</legend>
+            <div class="choice-chips" data-preserve>
+              <button type="button" data-value="window frames" aria-pressed="true" class="is-selected">Window frames</button>
+              <button type="button" data-value="existing floor" aria-pressed="true" class="is-selected">Existing floor</button>
+              <button type="button" data-value="ceiling geometry" aria-pressed="false">Ceiling geometry</button>
+              <button type="button" data-value="built-in cabinetry" aria-pressed="false">Built-in cabinetry</button>
+            </div>
+            <p class="field-note">These notes guide intent only. The hard mask—not text—is the geometric authority.</p>
+          </fieldset>
+
+          <label class="studio-notes" for="intent-notes"><span><strong>Additional direction</strong><small>Optional · maximum 240 characters</small></span><textarea id="intent-notes" maxlength="240" rows="3" data-notes placeholder="Example: Keep the finish matte and avoid high-contrast patterns."></textarea><output for="intent-notes" data-notes-count>0 / 240</output></label>
+
+          <div class="compiled-brief">
+            <div><span>COMPILED BRIEF</span><strong data-intent-title>Modern calm · Living room</strong></div>
+            <p data-compiled-prompt></p>
+            <div class="brief-meta"><span data-segment-count>5 explainable segments</span><span data-intent-hash>intent / calculating</span></div>
+          </div>
+
+          <div class="studio-actions"><span>All fields remain in this browser.</span><button class="button button-primary" type="button" data-next-step="2">Continue to mask <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button></div>
+        </div>
+
+        <div class="studio-step" data-step-panel="2" hidden>
+          <div class="studio-panel-head">
+            <div><span>STEP 02</span><h2>Authorize exactly where change may survive.</h2><p>Paint the editable zone in green. Erasing returns pixels to protected status. The sample begins with a repository-owned wall mask.</p></div>
+            <span class="contract-chip"><i></i> white = edit</span>
+          </div>
+
+          <div class="editor-toolbar">
+            <div class="tool-group" role="group" aria-label="Mask tool">
+              <button type="button" class="is-active" data-mask-tool="brush" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5M4 20c3 0 5-1 5-4l9-9-3-3-9 9c-3 0-4 2-4 5 0 1 1 2 2 2Z"></path></svg>Paint</button>
+              <button type="button" data-mask-tool="erase" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 15 9-11 7 6-8 10H8Z"></path><path d="M12 20h9"></path></svg>Erase</button>
+            </div>
+            <label class="brush-control" for="brush-size"><span>Brush</span><input id="brush-size" type="range" min="8" max="96" value="42" data-brush-size><output for="brush-size" data-brush-output>42 px</output></label>
+            <div class="toolbar-actions"><button type="button" data-reset-mask>Reset sample</button><button type="button" data-clear-mask>Clear</button></div>
+          </div>
+
+          <div class="mask-editor-wrap">
+            <canvas width="960" height="640" data-mask-editor aria-label="Mask editor. Drag to paint an editable region."></canvas>
+            <div class="editor-legend"><span><i class="legend-edit"></i>Editable</span><span><i class="legend-protect"></i>Protected</span></div>
+            <div class="canvas-cursor" aria-hidden="true" data-canvas-cursor></div>
+          </div>
+
+          <div class="editor-data-row">
+            <div><span>Mask coverage</span><strong data-mask-coverage>12.96%</strong><small>bounded edit surface</small></div>
+            <div><span>Canvas</span><strong data-canvas-size>960 × 640</strong><small>aligned geometry</small></div>
+            <div><span>Polarity</span><strong>white → edit</strong><small>black → preserve</small></div>
+          </div>
+
+          <div class="asset-controls">
+            <label class="asset-button" for="studio-image-upload"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4Z"></path><path d="m4 16 5-5 4 4 2-2 5 5"></path></svg><span><strong>Replace source</strong><small data-studio-image-name>PNG/JPEG/WebP · ≤12 MB · ≤4 MP</small></span><input id="studio-image-upload" type="file" accept="image/png,image/jpeg,image/webp" data-studio-image-upload></label>
+            <label class="asset-button" for="studio-mask-upload"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v9h9"></path></svg><span><strong>Import aligned mask</strong><small data-studio-mask-name>Optional white-edit mask</small></span><input id="studio-mask-upload" type="file" accept="image/png,image/jpeg,image/webp" data-studio-mask-upload></label>
+          </div>
+          <p class="studio-message" role="alert" aria-live="assertive" data-editor-message></p>
+
+          <div class="studio-actions"><button class="button button-secondary" type="button" data-next-step="1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>Back</button><button class="button button-primary" type="button" data-next-step="3">Review render job <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></button></div>
+        </div>
+
+        <div class="studio-step" data-step-panel="3" hidden>
+          <div class="studio-panel-head">
+            <div><span>STEP 03</span><h2>Run the local job and inspect its proof.</h2><p>The simulation mirrors the repository's job-shaped workflow while keeping every byte local. Output is deterministic and explicitly non-AI.</p></div>
+            <span class="contract-chip" data-review-status>ready to queue</span>
+          </div>
+
+          <div class="review-grid">
+            <div class="review-intent-card">
+              <span>DESIGN INTENT</span><h3 data-review-title>Modern calm · Living room</h3><p data-review-prompt></p><dl><div><dt>Compiler</dt><dd>intent-v1</dd></div><div><dt>Intent ID</dt><dd data-review-hash>—</dd></div><div><dt>Coverage</dt><dd data-review-coverage>—</dd></div></dl>
+            </div>
+            <div class="job-payload-card">
+              <div><span>CONTRACT-SHAPED PAYLOAD</span><button type="button" data-copy-payload>Copy</button></div>
+              <pre><code data-job-payload></code></pre>
+            </div>
+          </div>
+
+          <div class="job-timeline" data-job-timeline aria-label="Local render job lifecycle">
+            <div data-job-state="queued"><i></i><span><strong>Queued</strong><small>bounded local slot</small></span></div>
+            <b></b><div data-job-state="running"><i></i><span><strong>Running</strong><small>deterministic renderer</small></span></div>
+            <b></b><div data-job-state="compositing"><i></i><span><strong>Compositing</strong><small>restore protected pixels</small></span></div>
+            <b></b><div data-job-state="succeeded"><i></i><span><strong>Succeeded</strong><small>proof available</small></span></div>
+          </div>
+
+          <div class="render-stage">
+            <canvas width="960" height="640" data-studio-output aria-label="Local deterministic restyle result"></canvas>
+            <div class="render-empty" data-render-empty><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 4 14 8-14 8Z"></path></svg><strong>Ready for local simulation</strong><span>No provider call will be made.</span></div>
+            <div class="output-watermark">NON-AI · BROWSER-LOCAL · DETERMINISTIC</div>
+          </div>
+
+          <dl class="studio-result-metrics">
+            <div><dt>Protected pixels</dt><dd data-studio-protected>—</dd><small>outside authorized mask</small></div>
+            <div><dt>Protected drift</dt><dd class="metric-safe" data-studio-drift>—</dd><small>target: exactly zero</small></div>
+            <div><dt>Editable changed</dt><dd data-studio-editable>—</dd><small>inside authorized mask</small></div>
+            <div><dt>Job ID</dt><dd class="metric-job" data-studio-job-id>—</dd><small>ephemeral browser reference</small></div>
+          </dl>
+
+          <div class="render-actions"><button class="button button-primary" type="button" data-run-studio>Run deterministic job <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 4 14 8-14 8Z"></path></svg></button><button class="button button-secondary" type="button" data-download-studio disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 21h16"></path></svg>Download proof PNG</button><span data-render-proof>Run to calculate byte-level boundary evidence.</span></div>
+          <p class="studio-message" role="alert" aria-live="assertive" data-render-message></p>
+
+          <div class="studio-actions"><button class="button button-secondary" type="button" data-next-step="2"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>Edit mask</button><a class="button button-secondary" href="index.html#architecture">Inspect service architecture <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></a></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="shell studio-boundary-note" aria-labelledby="boundary-note-title">
+      <div><span>HONEST SCOPE</span><h2 id="boundary-note-title">Product workflow evidence, not a visual-quality benchmark.</h2></div>
+      <p>This studio demonstrates structured intent, mask authoring, a job lifecycle, deterministic compositing and exact outside-mask preservation. Live FLUX execution, client contract compatibility and production persistence remain separate approval gates.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer studio-footer"><div class="shell footer-grid"><div class="brand footer-brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M7 8.5 18 3l11 5.5v19L18 33 7 27.5Z"></path><path d="m12 20 4 4 8-10"></path></svg></span><span class="brand-copy"><strong>Restyle / Studio</strong><small>REFERENCE VERTICAL SLICE</small></span></div><p>Private by construction · no network runtime · no AI-quality claim</p><div class="footer-links"><a href="index.html">Showcase</a><a href="https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc" target="_blank" rel="noopener noreferrer">Source</a></div></div></footer>
+
+  <script src="studio.js" defer></script>
+</body>
+</html>

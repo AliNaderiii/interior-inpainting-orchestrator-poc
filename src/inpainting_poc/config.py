@@ -12,6 +12,9 @@ class Settings:
     max_prompt_chars: int = 1_000
     request_timeout_seconds: float = 60.0
     provider_deadline_seconds: float = 120.0
+    job_max_records: int = 32
+    job_max_concurrency: int = 2
+    job_ttl_seconds: int = 900
     bfl_api_key: str | None = None
     bfl_result_hosts: tuple[str, ...] = ()
 
@@ -29,6 +32,9 @@ class Settings:
             max_prompt_chars=int(os.getenv("MAX_PROMPT_CHARS", "1000")),
             request_timeout_seconds=float(os.getenv("REQUEST_TIMEOUT_SECONDS", "60")),
             provider_deadline_seconds=float(os.getenv("PROVIDER_DEADLINE_SECONDS", "120")),
+            job_max_records=int(os.getenv("JOB_MAX_RECORDS", "32")),
+            job_max_concurrency=int(os.getenv("JOB_MAX_CONCURRENCY", "2")),
+            job_ttl_seconds=int(os.getenv("JOB_TTL_SECONDS", "900")),
             bfl_api_key=os.getenv("BFL_API_KEY"),
             bfl_result_hosts=hosts,
         )
@@ -40,6 +46,12 @@ class Settings:
             raise ValueError("Image limits must be positive")
         if not 1 <= self.max_prompt_chars <= 10_000:
             raise ValueError("MAX_PROMPT_CHARS must be between 1 and 10000")
+        if not 1 <= self.job_max_records <= 10_000:
+            raise ValueError("JOB_MAX_RECORDS must be between 1 and 10000")
+        if not 1 <= self.job_max_concurrency <= 64:
+            raise ValueError("JOB_MAX_CONCURRENCY must be between 1 and 64")
+        if not 30 <= self.job_ttl_seconds <= 86_400:
+            raise ValueError("JOB_TTL_SECONDS must be between 30 and 86400")
         if self.provider == "bfl" and not self.bfl_api_key:
             raise ValueError("BFL_API_KEY is required when INPAINT_PROVIDER=bfl")
         if self.provider == "bfl" and not self.bfl_result_hosts:

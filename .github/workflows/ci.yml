@@ -36,5 +36,11 @@ jobs:
       - name: Strict mypy against minimum supported Python
         if: matrix.python-version == '3.11'
         run: mypy src/inpainting_poc
+      - name: Static showcase security and JavaScript syntax
+        if: matrix.python-version == '3.11'
+        run: |
+          python scripts/validate_static_site.py
+          node --check site/app.js
+          node --check site/studio.js
       - name: Tests
         run: pytest -q -m 'not live_provider'

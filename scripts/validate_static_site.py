@@ -81,6 +81,9 @@ def validate() -> list[str]:
         "index.html",
         "styles.css",
         "app.js",
+        "studio.html",
+        "studio.css",
+        "studio.js",
         ".nojekyll",
         "assets/social-preview.png",
     )
@@ -94,9 +97,20 @@ def validate() -> list[str]:
         if path.name.lower() in {".env", "id_rsa", "id_ed25519"}:
             errors.append(f"Sensitive filename in artifact: {path.relative_to(ROOT)}")
 
+    csp_directives = (
+        "object-src 'none'",
+        "base-uri 'none'",
+        "frame-ancestors 'none'",
+    )
     for html_path in SITE.glob("*.html"):
+        html = html_path.read_text(encoding="utf-8")
         parser = SiteParser()
-        parser.feed(html_path.read_text(encoding="utf-8"))
+        parser.feed(html)
+        for directive in csp_directives:
+            if directive not in html:
+                errors.append(f"Missing CSP directive in {html_path.name}: {directive}")
+        if html_path.name != "404.html" and "connect-src 'none'" not in html:
+            errors.append(f"Missing no-network CSP in {html_path.name}")
         if parser.inline_violation:
             errors.append(f"Inline script/style/event handler in {html_path.name}")
         for reference in parser.references:
@@ -122,12 +136,20 @@ def validate() -> list[str]:
             errors.append(f"Missing scope language: {claim_boundary}")
 
     javascript = (SITE / "app.js").read_text(encoding="utf-8")
-    for network_api in ("fetch(", "XMLHttpRequest", "WebSocket", "sendBeacon("):
-        if network_api in javascript:
-            errors.append(f"Forbidden browser network API: {network_api}")
+    studio_javascript = (SITE / "studio.js").read_text(encoding="utf-8")
+    for javascript_path in SITE.glob("*.js"):
+        browser_code = javascript_path.read_text(encoding="utf-8")
+        for network_api in ("fetch(", "XMLHttpRequest", "WebSocket", "sendBeacon("):
+            if network_api in browser_code:
+                errors.append(
+                    f"Forbidden browser network API in {javascript_path.name}: {network_api}"
+                )
     for client_limit in ("MAX_BROWSER_BYTES", "MAX_BROWSER_PIXELS", "SUPPORTED_IMAGE_TYPES"):
         if client_limit not in javascript:
             errors.append(f"Missing browser resource control: {client_limit}")
+    for studio_limit in ("MAX_BYTES", "MAX_PIXELS", "SUPPORTED_TYPES"):
+        if studio_limit not in studio_javascript:
+            errors.append(f"Missing studio resource control: {studio_limit}")
 
     for workflow_name in ("ci.yml", "pages.yml"):
         workflow = (ROOT / ".github" / "workflows" / workflow_name).read_text(encoding="utf-8")

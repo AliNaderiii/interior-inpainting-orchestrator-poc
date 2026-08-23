@@ -6,7 +6,7 @@ The `site/` directory is a static, portfolio-grade technical showcase for this r
 
 - GitHub Pages presents architecture, security controls and executable browser-side evidence.
 - FastAPI remains the backend reference implementation and runs locally, in CI tests, or on an approved application host.
-- The browser Boundary Lab is deterministic and non-AI. It does not call FLUX or claim generative quality.
+- The browser Boundary Lab and Visual Restyle Studio are deterministic and non-AI. They do not call FLUX or claim generative quality.
 
 Expected public URL:
 
@@ -37,7 +37,7 @@ All official actions are pinned to full commit SHAs. The site has no package ins
 
 ## Static-site security boundary
 
-The main page declares a restrictive Content Security Policy:
+Every HTML entry point declares a restrictive Content Security Policy. `index.html` and `studio.html` explicitly disable all runtime connections:
 
 - `connect-src 'none'` blocks runtime network/API calls;
 - scripts, styles and images are same-origin only;
@@ -56,7 +56,10 @@ Before sharing the URL with a client:
 - [ ] The home page loads without a path suffix.
 - [ ] Before/after slider and mask overlay work.
 - [ ] Boundary Lab sample produces zero changed protected pixels.
+- [ ] Visual Restyle Studio completes `Intent → Mask → Preview → Verify`.
+- [ ] Studio paint/erase tools, structured prompt explanation and job timeline work.
 - [ ] Custom image and mask remain local and produce a downloadable PNG.
+- [ ] Browser developer tools show no outbound runtime requests after static assets load.
 - [ ] Mobile navigation and dark/light theme work.
 - [ ] External source, CI, security and validation links resolve.
 - [ ] No text implies that the deterministic browser demo is AI-generated.
