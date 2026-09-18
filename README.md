@@ -1,4 +1,4 @@
-# Interior Inpainting Orchestrator — Pre-award Reference PoC
+# Interior Inpainting Orchestrator — Deterministic Image Processing Backend
 
 [![CI](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/ci.yml)
 [![GitHub Pages](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/pages.yml/badge.svg)](https://github.com/AliNaderiii/interior-inpainting-orchestrator-poc/actions/workflows/pages.yml)
@@ -27,7 +27,7 @@ A focused, security-conscious reference implementation demonstrating the determi
 
 > **Live showcase:** [Open the GitHub Pages experience](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/) — inspect the evidence or open the [Spatial Design Studio](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/spatial.html) for the browser-local `Brief → Locks → Placement → Variants → Handoff` vertical slice. The prior [Visual Restyle Studio](https://alinaderiii.github.io/interior-inpainting-orchestrator-poc/studio.html) remains available as focused mask-authoring evidence.
 
-> > **Scope:** Portfolio reference implementation focused on deterministic mask handling and protected-pixel compositing. Provider adapters are modular and swappable.
+> **Scope:** Portfolio reference implementation focused on deterministic mask handling and protected-pixel compositing. Provider adapters are modular and swappable.
 
 > **Release status:** `v0.3.0` is the current stable public release, adding Spatial Briefs, transform-only product placement, variant review and a cinematic landing experience. The release was promoted only after owner approval, multi-version CI, GitHub Pages deployment and hosted-browser verification. See the [changelog](CHANGELOG.md), [Phase 05 report](reports/PHASE_05_SPATIAL_DESIGN_STUDIO.md) and [Phase 06 report](reports/PHASE_06_CINEMATIC_SPATIAL_SHOWCASE.md).
 
